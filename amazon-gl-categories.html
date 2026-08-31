@@ -1,0 +1,1762 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Amazon 类目分类</title>
+<style>
+  :root {
+    --bg: #f3f4f6;
+    --panel: #ffffff;
+    --ink: #16181d;
+    --muted: #5e6672;
+    --faint: #8a929e;
+    --line: #e2e5ea;
+    --line-strong: #cdd3db;
+    --accent: #0f6fbf;
+    --accent-soft: #e9f2fb;
+    --orange: #d97706;
+    --orange-soft: #fff4e1;
+    --green: #14805c;
+    --green-soft: #e6f6f0;
+    --danger: #b42318;
+    --topbar: #10151d;
+    --topbar-text: #f5f6f8;
+    --mono: "SFMono-Regular", "Cascadia Code", Consolas, "Liberation Mono", Menlo, monospace;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
+    --radius: 8px;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html,
+  body {
+    height: 100%;
+  }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 14px;
+    line-height: 1.45;
+  }
+
+  button,
+  input {
+    font: inherit;
+    color: inherit;
+  }
+
+  button {
+    border: 0;
+    cursor: pointer;
+  }
+
+  svg {
+    display: block;
+    width: 16px;
+    height: 16px;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    fill: none;
+  }
+
+  .topbar {
+    height: 64px;
+    background: var(--topbar);
+    color: var(--topbar-text);
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    padding: 0 20px;
+    flex: 0 0 auto;
+    position: relative;
+    z-index: 20;
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+  }
+
+  .brand-mark {
+    width: 38px;
+    height: 38px;
+    border-radius: var(--radius);
+    background: linear-gradient(135deg, #ff9900, #e8790f);
+    color: #17110a;
+    font-weight: 800;
+    font-size: 14px;
+    letter-spacing: 0;
+    display: grid;
+    place-items: center;
+    flex: 0 0 auto;
+  }
+
+  .brand h1 {
+    margin: 0;
+    font-size: 17px;
+    font-weight: 700;
+    line-height: 1.2;
+    white-space: nowrap;
+  }
+
+  .brand-sub {
+    margin: 2px 0 0;
+    font-size: 12px;
+    color: #9aa4b1;
+    white-space: nowrap;
+  }
+
+  .global-search {
+    position: relative;
+    flex: 1 1 320px;
+    max-width: 620px;
+    display: flex;
+    align-items: center;
+  }
+
+  .global-search > svg {
+    position: absolute;
+    left: 12px;
+    width: 17px;
+    height: 17px;
+    color: #6d7785;
+    pointer-events: none;
+  }
+
+  .global-search input {
+    width: 100%;
+    height: 40px;
+    border: 1px solid #303a48;
+    border-radius: var(--radius);
+    background: #1c232e;
+    color: #f3f5f8;
+    padding: 0 38px 0 40px;
+    outline: none;
+    transition: border-color 0.15s ease, background 0.15s ease;
+  }
+
+  .global-search input::placeholder {
+    color: #7f8a99;
+  }
+
+  .global-search input:focus {
+    border-color: #ff9900;
+    background: #222b37;
+  }
+
+  .clear-btn {
+    position: absolute;
+    right: 6px;
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    display: grid;
+    place-items: center;
+    background: transparent;
+    color: #8b96a4;
+  }
+
+  .clear-btn:hover {
+    background: #2b3542;
+    color: #f3f5f8;
+  }
+
+  .stat-pills {
+    display: flex;
+    gap: 8px;
+    margin-left: auto;
+    flex: 0 0 auto;
+  }
+
+  .stat-pill {
+    background: #1b222c;
+    border: 1px solid #2c3644;
+    color: #c4ccd6;
+    border-radius: var(--radius);
+    padding: 6px 10px;
+    font-size: 12px;
+    white-space: nowrap;
+  }
+
+  .stat-pill b {
+    color: #ffffff;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .lang-switch {
+    display: flex;
+    flex: 0 0 auto;
+    gap: 2px;
+    padding: 3px;
+    background: #1b222c;
+    border: 1px solid #2c3644;
+    border-radius: var(--radius);
+  }
+
+  .lang-btn {
+    height: 28px;
+    padding: 0 11px;
+    border-radius: 6px;
+    background: transparent;
+    color: #9aa4b1;
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  .lang-btn:hover {
+    color: #f3f5f8;
+  }
+
+  .lang-btn.is-active {
+    background: #ff9900;
+    color: #17110a;
+  }
+
+  .layout {
+    flex: 1 1 auto;
+    min-height: 0;
+    display: grid;
+    grid-template-columns: 276px minmax(0, 1fr);
+  }
+
+  .sidebar {
+    background: var(--panel);
+    border-right: 1px solid var(--line);
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    padding: 14px 12px;
+    gap: 10px;
+  }
+
+  .side-label {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    padding: 0 6px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--muted);
+  }
+
+  .side-label span {
+    color: var(--faint);
+    font-weight: 500;
+  }
+
+  .side-search {
+    position: relative;
+  }
+
+  .side-search svg {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 15px;
+    height: 15px;
+    color: var(--faint);
+    pointer-events: none;
+  }
+
+  .side-search input {
+    width: 100%;
+    height: 36px;
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius);
+    background: #fafbfc;
+    padding: 0 10px 0 34px;
+    outline: none;
+  }
+
+  .side-search input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-soft);
+    background: #ffffff;
+  }
+
+  .gl-list {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding-right: 2px;
+  }
+
+  .gl-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    min-height: 34px;
+    padding: 6px 10px;
+    border-radius: 6px;
+    background: transparent;
+    text-align: left;
+    color: var(--ink);
+    border: 1px solid transparent;
+    transition: background 0.12s ease;
+  }
+
+  .gl-item:hover {
+    background: #f0f3f6;
+  }
+
+  .gl-item.is-active {
+    background: var(--accent-soft);
+    border-color: #bcd8f1;
+    color: #0a4d86;
+    font-weight: 600;
+  }
+
+  .gl-item-name {
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .gl-item-count {
+    flex: 0 0 auto;
+    font-size: 11px;
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+    background: #eef1f4;
+    border-radius: 999px;
+    padding: 2px 7px;
+  }
+
+  .gl-item.is-active .gl-item-count {
+    background: #d3e7f9;
+    color: #0a4d86;
+  }
+
+  .gl-empty {
+    padding: 18px 10px;
+    color: var(--faint);
+    font-size: 13px;
+    text-align: center;
+  }
+
+  .main {
+    min-width: 0;
+    min-height: 0;
+    overflow-y: auto;
+    padding: 24px 28px 40px;
+  }
+
+  .page {
+    max-width: 1240px;
+    margin: 0 auto;
+  }
+
+  .view-head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 18px;
+  }
+
+  .view-head h2 {
+    margin: 0;
+    font-size: 24px;
+    line-height: 1.25;
+    letter-spacing: 0;
+  }
+
+  .view-sub {
+    margin: 6px 0 0;
+    color: var(--muted);
+    font-size: 13px;
+  }
+
+  .view-sub b {
+    color: var(--ink);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .gl-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(228px, 1fr));
+    gap: 12px;
+  }
+
+  .gl-card {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-height: 118px;
+    padding: 14px 16px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--panel);
+    text-align: left;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+  }
+
+  .gl-card:hover {
+    border-color: var(--accent);
+    box-shadow: 0 4px 14px rgba(15, 111, 191, 0.1);
+    transform: translateY(-1px);
+  }
+
+  .gl-card-name {
+    font-size: 15px;
+    font-weight: 700;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .gl-card-stats {
+    font-size: 12px;
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .gl-card-stats b {
+    color: var(--accent);
+  }
+
+  .gl-card-cats {
+    font-size: 12px;
+    color: var(--faint);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .detail-head {
+    margin-bottom: 16px;
+  }
+
+  .back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 10px;
+    margin: 0 0 12px -10px;
+    border-radius: 6px;
+    background: transparent;
+    color: var(--muted);
+    font-size: 13px;
+  }
+
+  .back-btn:hover {
+    background: #eef1f4;
+    color: var(--ink);
+  }
+
+  .detail-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .detail-title h2 {
+    margin: 0;
+    font-size: 26px;
+    line-height: 1.25;
+    letter-spacing: 0;
+  }
+
+  .badges {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+
+  .badge {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--muted);
+    background: #eef1f4;
+    border-radius: 999px;
+    padding: 3px 9px;
+    white-space: nowrap;
+  }
+
+  .badge.badge-blue {
+    color: #0a4d86;
+    background: var(--accent-soft);
+  }
+
+  .badge.badge-orange {
+    color: #9a5206;
+    background: var(--orange-soft);
+  }
+
+  .detail-tools {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 14px;
+  }
+
+  .detail-search {
+    position: relative;
+    flex: 1 1 240px;
+    max-width: 360px;
+  }
+
+  .detail-search svg {
+    position: absolute;
+    left: 11px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 15px;
+    height: 15px;
+    color: var(--faint);
+    pointer-events: none;
+  }
+
+  .detail-search input {
+    width: 100%;
+    height: 36px;
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius);
+    background: var(--panel);
+    padding: 0 10px 0 34px;
+    outline: none;
+  }
+
+  .detail-search input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-soft);
+  }
+
+  .tool-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    height: 36px;
+    padding: 0 12px;
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius);
+    background: var(--panel);
+    color: var(--muted);
+    font-size: 13px;
+    white-space: nowrap;
+  }
+
+  .tool-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: var(--accent-soft);
+  }
+
+  .section-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .group {
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius);
+    background: var(--panel);
+    overflow: hidden;
+    margin-bottom: 10px;
+  }
+
+  .group-toggle {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    min-height: 48px;
+    padding: 9px 12px;
+    background: #f6f8fa;
+    text-align: left;
+    border-bottom: 1px solid transparent;
+  }
+
+  .group-toggle:hover,
+  .group-toggle[aria-expanded="true"] {
+    background: #eef3f8;
+  }
+
+  .group-toggle[aria-expanded="true"] {
+    border-bottom-color: var(--line);
+  }
+
+  .group-name {
+    flex: 1 1 auto;
+    min-width: 0;
+    font-weight: 700;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .group-count {
+    flex: 0 0 auto;
+    font-size: 12px;
+    color: var(--muted);
+    background: #e8ecf1;
+    border-radius: 999px;
+    padding: 3px 9px;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  .group-body {
+    border-top: 1px solid var(--line);
+    background: #fbfcfd;
+    padding: 8px;
+  }
+
+  .group-body .section-list {
+    gap: 6px;
+  }
+
+  .section {
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--panel);
+    overflow: hidden;
+  }
+
+  .cat-toggle {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    min-height: 46px;
+    padding: 8px 12px;
+    background: var(--panel);
+    text-align: left;
+    border-bottom: 1px solid transparent;
+  }
+
+  .cat-toggle:hover {
+    background: #f8fafb;
+  }
+
+  .cat-toggle[aria-expanded="true"] {
+    border-bottom-color: var(--line);
+  }
+
+  .chevron {
+    flex: 0 0 18px;
+    display: grid;
+    place-items: center;
+    color: var(--faint);
+    transition: transform 0.15s ease;
+  }
+
+  .chevron svg {
+    width: 15px;
+    height: 15px;
+  }
+
+  .cat-toggle[aria-expanded="true"] .chevron {
+    transform: rotate(90deg);
+    color: var(--accent);
+  }
+
+  .cat-code {
+    flex: 0 0 auto;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--accent);
+    background: var(--accent-soft);
+    border-radius: 5px;
+    padding: 3px 7px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .cat-name {
+    flex: 1 1 auto;
+    min-width: 0;
+    font-weight: 600;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .cat-count {
+    flex: 0 0 auto;
+    font-size: 11px;
+    color: var(--muted);
+    background: #eef1f4;
+    border-radius: 999px;
+    padding: 2px 8px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .cat-body {
+    border-top: 1px solid var(--line);
+    background: #fbfcfd;
+  }
+
+  .sub-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 7px 12px 7px 40px;
+    border-bottom: 1px solid #eef1f4;
+    min-height: 36px;
+  }
+
+  .sub-row:last-child {
+    border-bottom: 0;
+  }
+
+  .sub-row:hover {
+    background: #f5f8fb;
+  }
+
+  .sub-code {
+    flex: 0 0 96px;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: #3d4a5c;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .sub-name {
+    flex: 1 1 auto;
+    min-width: 0;
+    font-size: 13px;
+  }
+
+  .copy-btn {
+    flex: 0 0 30px;
+    width: 30px;
+    height: 30px;
+    border-radius: 6px;
+    display: grid;
+    place-items: center;
+    background: transparent;
+    color: var(--faint);
+    border: 1px solid transparent;
+  }
+
+  .copy-btn:hover {
+    background: var(--panel);
+    border-color: var(--line-strong);
+    color: var(--accent);
+  }
+
+  .copy-btn.copied {
+    background: var(--green-soft);
+    border-color: #bfe6d8;
+    color: var(--green);
+  }
+
+  .result-group {
+    margin-bottom: 16px;
+  }
+
+  .gl-badge {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 10px 12px;
+    margin-bottom: 8px;
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius);
+    background: var(--panel);
+    text-align: left;
+  }
+
+  .gl-badge:hover {
+    border-color: var(--accent);
+    background: var(--accent-soft);
+  }
+
+  .gl-badge-name {
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  .gl-badge-count {
+    font-size: 12px;
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+  }
+
+  mark {
+    background: #ffe28a;
+    color: #5b3b00;
+    border-radius: 3px;
+    padding: 0 2px;
+  }
+
+  .empty-state {
+    padding: 56px 20px;
+    text-align: center;
+    color: var(--faint);
+    border: 1px dashed var(--line-strong);
+    border-radius: var(--radius);
+    background: var(--panel);
+  }
+
+  .empty-state b {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 16px;
+    color: var(--muted);
+  }
+
+  .footer-note {
+    margin-top: 26px;
+    padding-top: 14px;
+    border-top: 1px solid var(--line);
+    color: var(--faint);
+    font-size: 12px;
+  }
+
+  @media (max-width: 980px) {
+    .topbar {
+      height: auto;
+      min-height: 64px;
+      flex-wrap: wrap;
+      padding: 10px 16px;
+      gap: 12px;
+    }
+
+    .global-search {
+      order: 3;
+      flex: 1 1 100%;
+      max-width: none;
+    }
+
+    .stat-pills {
+      margin-left: auto;
+    }
+
+    .layout {
+      display: block;
+    }
+
+    .sidebar {
+      border-right: 0;
+      border-bottom: 1px solid var(--line);
+      padding: 10px 14px 12px;
+      max-height: 180px;
+      overflow: hidden;
+    }
+
+    .side-label {
+      display: none;
+    }
+
+    .side-search input {
+      height: 34px;
+    }
+
+    .gl-list {
+      flex-direction: row;
+      overflow-x: auto;
+      overflow-y: hidden;
+      padding-bottom: 6px;
+      gap: 6px;
+    }
+
+    .gl-item {
+      flex: 0 0 auto;
+      width: auto;
+      min-height: 32px;
+      padding: 5px 10px;
+      white-space: nowrap;
+      background: #f1f3f6;
+    }
+
+    .gl-item-name {
+      white-space: nowrap;
+    }
+
+    .main {
+      padding: 18px 16px 32px;
+    }
+
+    .sub-row {
+      padding-left: 34px;
+    }
+
+    .sub-code {
+      flex-basis: 84px;
+    }
+  }
+
+  @media (max-width: 620px) {
+    .stat-pills {
+      display: none;
+    }
+
+    .view-head h2 {
+      font-size: 21px;
+    }
+
+    .detail-title h2 {
+      font-size: 22px;
+    }
+
+    .gl-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .gl-card {
+      min-height: 104px;
+      padding: 12px;
+    }
+
+    .cat-toggle {
+      gap: 8px;
+      padding: 8px 10px;
+    }
+
+    .cat-code {
+      font-size: 11px;
+      padding: 2px 5px;
+    }
+
+    .sub-row {
+      padding: 7px 10px 7px 30px;
+    }
+
+    .sub-code {
+      flex-basis: 74px;
+      font-size: 11px;
+    }
+  }
+</style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-mark" aria-hidden="true">GL</div>
+      <div>
+        <h1 data-i18n="topTitle">Amazon 类目分类</h1>
+        <p class="brand-sub" data-i18n="brandSub">GL · 类目 · 子类目</p>
+      </div>
+    </div>
+    <div class="lang-switch" role="group" aria-label="Language / 语言">
+      <button class="lang-btn is-active" type="button" data-lang="zh">中文</button>
+      <button class="lang-btn" type="button" data-lang="en">EN</button>
+    </div>
+    <div class="global-search">
+      <svg aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>
+      <input id="globalSearch" type="search" placeholder="搜索类目、子类目或代码" autocomplete="off" aria-label="全局搜索">
+      <button id="clearSearch" class="clear-btn" type="button" hidden aria-label="清空搜索">
+        <svg aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+      </button>
+    </div>
+    <div class="stat-pills" aria-label="数据统计">
+      <span class="stat-pill"><b id="statGl">118</b> <span data-i18n="statTopLabel">个顶层分类</span></span>
+      <span class="stat-pill"><b id="statCat">1147</b> <span data-i18n="statCatLabel">个类目</span></span>
+      <span class="stat-pill"><b id="statSub">13657</b> <span data-i18n="statSubLabel">个子类目</span></span>
+    </div>
+  </header>
+
+  <div class="layout">
+    <aside class="sidebar" aria-label="GL 分类目录">
+      <div class="side-label"><span data-i18n="sideLabel">GL 分类目录</span> <span id="glTotal">118</span></div>
+      <div class="side-search">
+        <svg aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>
+        <input id="glFilter" type="search" placeholder="筛选 GL 分类" autocomplete="off" aria-label="筛选 GL 分类">
+      </div>
+      <div id="glList" class="gl-list" role="navigation" aria-label="GL 列表"></div>
+    </aside>
+    <main id="main" class="main" tabindex="-1"></main>
+  </div>
+
+  <script src="./amazon-gl-data.js"></script>
+  <script>
+    (function () {
+      "use strict";
+
+      var GL = window.AMAZON_GL || [];
+      var main = document.getElementById("main");
+      var glList = document.getElementById("glList");
+      var globalSearch = document.getElementById("globalSearch");
+      var clearSearch = document.getElementById("clearSearch");
+      var glFilterInput = document.getElementById("glFilter");
+
+      var ICONS = {
+        chevron: '<svg aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>',
+        copy: '<svg aria-hidden="true"><rect width="13" height="13" x="9" y="9" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>',
+        check: '<svg aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>',
+        search: '<svg aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>',
+        arrow: '<svg aria-hidden="true"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>',
+        expand: '<svg aria-hidden="true"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>',
+        collapse: '<svg aria-hidden="true"><path d="m7 15 5-5 5 5"/><path d="m7 9 5 5 5-5"/></svg>'
+      };
+
+      var I18N = {
+        zh: {
+          topTitle: "Amazon 类目分类",
+          brandSub: "GL · 类目 · 子类目",
+          searchPlaceholder: "搜索类目、子类目或代码",
+          searchAria: "全局搜索",
+          clearAria: "清空搜索",
+          statsAria: "数据统计",
+          statTopLabel: "个顶层分类",
+          statCatLabel: "个类目",
+          statSubLabel: "个子类目",
+          sideLabel: "GL 分类目录",
+          sideAria: "GL 分类目录",
+          sideFilter: "筛选 GL 分类",
+          glListAria: "GL 列表",
+          all: "全部类目",
+          overviewTitle: "全部类目",
+          overviewSub: "共 {n} 个顶层分类",
+          overviewOthers: "，Others 收纳了 {n} 个未在持有清单中列出的原 GL",
+          glCountOnCard: "{n} 个原 GL · {m} 个子类目",
+          catCountOnCard: "{n} 类目 · {m} 子类目",
+          detailBackAll: "全部类目",
+          detailBackParent: "返回 {name}",
+          catBadge: "{n} 个类目",
+          subBadge: "{n} 个子类目",
+          glBadge: "{n} 个原 GL",
+          matchBadge: "匹配 {n} 个子类目",
+          filterDetail: "筛选当前 GL",
+          filterRoot: "筛选 {name}",
+          expandAll: "展开全部",
+          collapseAll: "收起全部",
+          groupCount: "{n} 类目 · {m} 子类目",
+          searchTitle: "搜索结果",
+          searchSub: "找到 {n} 个子类目，来自 {m} 个 GL",
+          resultGroupCount: "{n} 个类目 · {m} 个子类目",
+          noMatchTitle: "未找到匹配项",
+          noMatchHint: "请尝试类目名称、子类目名称或代码，例如 Kitchen、Pant、19301010。",
+          noDetailTitle: "{name} 中没有匹配项",
+          noDetailHint: "换一个关键词试试。",
+          noGl: "没有匹配的 GL 分类",
+          footerSource: "归类来源：Lumina VC账号管理 - Amazon GL 持有情况.csv · 数据来源：Amazon GL.xlsx",
+          footerTop: "{n} 个顶层分类",
+          footerOthers: "Others 收纳 {n} 个原 GL",
+          footerCat: "{n} 个类目",
+          footerSub: "{n} 个子类目",
+          copyAria: "复制代码 {code}"
+        },
+        en: {
+          topTitle: "Amazon Category Directory",
+          brandSub: "GL · Category · Subcategory",
+          searchPlaceholder: "Search category, subcategory or code",
+          searchAria: "Global search",
+          clearAria: "Clear search",
+          statsAria: "Data summary",
+          statTopLabel: "top-level groups",
+          statCatLabel: "categories",
+          statSubLabel: "subcategories",
+          sideLabel: "GL Directory",
+          sideAria: "GL directory",
+          sideFilter: "Filter GL groups",
+          glListAria: "GL list",
+          all: "All Categories",
+          overviewTitle: "All Categories",
+          overviewSub: "{n} top-level groups",
+          overviewOthers: " · Others contains {n} original GLs not listed in the holding file",
+          glCountOnCard: "{n} original GLs · {m} subcategories",
+          catCountOnCard: "{n} categories · {m} subcategories",
+          detailBackAll: "All Categories",
+          detailBackParent: "Back to {name}",
+          catBadge: "{n} categories",
+          subBadge: "{n} subcategories",
+          glBadge: "{n} original GLs",
+          matchBadge: "{n} matching subcategories",
+          filterDetail: "Filter this GL",
+          filterRoot: "Filter {name}",
+          expandAll: "Expand all",
+          collapseAll: "Collapse all",
+          groupCount: "{n} categories · {m} subcategories",
+          searchTitle: "Search Results",
+          searchSub: "{n} subcategories found across {m} GLs",
+          resultGroupCount: "{n} categories · {m} subcategories",
+          noMatchTitle: "No matches found",
+          noMatchHint: "Try a category name, subcategory name or code, e.g. Kitchen, Pant, 19301010.",
+          noDetailTitle: "No matches in {name}",
+          noDetailHint: "Try a different keyword.",
+          noGl: "No matching GL groups",
+          footerSource: "Classification source: Lumina VC账号管理 - Amazon GL 持有情况.csv · Data source: Amazon GL.xlsx",
+          footerTop: "{n} top-level groups",
+          footerOthers: "Others contains {n} original GLs",
+          footerCat: "{n} categories",
+          footerSub: "{n} subcategories",
+          copyAria: "Copy code {code}"
+        }
+      };
+
+      var currentLang = "zh";
+      try {
+        currentLang = localStorage.getItem("amazon-gl-lang") === "en" ? "en" : "zh";
+      } catch (err) {}
+      var T = I18N[currentLang];
+
+      function fmt(tpl, params) {
+        return String(tpl).replace(/\{(\w+)\}/g, function (match, key) {
+          return params && params[key] != null ? params[key] : match;
+        });
+      }
+
+      function applyStaticTexts() {
+        document.title = T.topTitle;
+        document.documentElement.lang = currentLang === "zh" ? "zh-CN" : "en";
+        document.querySelectorAll("[data-i18n]").forEach(function (el) {
+          var key = el.getAttribute("data-i18n");
+          if (T[key] != null) {
+            el.textContent = T[key];
+          }
+        });
+        globalSearch.placeholder = T.searchPlaceholder;
+        globalSearch.setAttribute("aria-label", T.searchAria);
+        clearSearch.setAttribute("aria-label", T.clearAria);
+        document.querySelector(".stat-pills").setAttribute("aria-label", T.statsAria);
+        document.querySelector(".sidebar").setAttribute("aria-label", T.sideAria);
+        glFilterInput.placeholder = T.sideFilter;
+        glFilterInput.setAttribute("aria-label", T.sideFilter);
+        glList.setAttribute("aria-label", T.glListAria);
+        document.querySelectorAll(".lang-btn").forEach(function (btn) {
+          btn.classList.toggle("is-active", btn.getAttribute("data-lang") === currentLang);
+        });
+      }
+
+      function setLang(lang) {
+        currentLang = lang === "en" ? "en" : "zh";
+        T = I18N[currentLang];
+        try {
+          localStorage.setItem("amazon-gl-lang", currentLang);
+        } catch (err) {}
+        applyStaticTexts();
+        render();
+      }
+
+      var state = {
+        selectedGl: null,
+        detailQuery: ""
+      };
+
+      var sectionData = [];
+      var NUMBER_FORMAT = new Intl.NumberFormat("zh-CN");
+
+      function esc(value) {
+        return String(value == null ? "" : value).replace(/[&<>"']/g, function (ch) {
+          return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[ch];
+        });
+      }
+
+      function tokensOf(query) {
+        return String(query || "").trim().toLowerCase().split(/\s+/).filter(Boolean);
+      }
+
+      function matches(haystack, tokens) {
+        var text = String(haystack || "").toLowerCase();
+        return tokens.every(function (token) {
+          return text.indexOf(token) !== -1;
+        });
+      }
+
+      function highlight(text, tokens) {
+        text = String(text || "");
+        if (!tokens.length) {
+          return esc(text);
+        }
+        var lower = text.toLowerCase();
+        var out = "";
+        var i = 0;
+        while (i < text.length) {
+          var found = null;
+          for (var t = 0; t < tokens.length; t++) {
+            var idx = lower.indexOf(tokens[t], i);
+            if (idx !== -1 && (found === null || idx < found.idx)) {
+              found = { idx: idx, len: tokens[t].length };
+            }
+          }
+          if (!found) {
+            break;
+          }
+          if (found.idx > i) {
+            out += esc(text.slice(i, found.idx));
+          }
+          out += "<mark>" + esc(text.slice(found.idx, found.idx + found.len)) + "</mark>";
+          i = found.idx + found.len;
+        }
+        out += esc(text.slice(i));
+        return out;
+      }
+
+      function subRowHTML(sub, tokens) {
+        return (
+          '<div class="sub-row">' +
+            '<span class="sub-code">' + highlight(sub.code, tokens) + "</span>" +
+            '<span class="sub-name">' + highlight(sub.name, tokens) + "</span>" +
+            '<button class="copy-btn" type="button" data-copy="' + esc(sub.code) + '" aria-label="' + esc(fmt(T.copyAria, { code: sub.code })) + '">' + ICONS.copy + "</button>" +
+          "</div>"
+        );
+      }
+
+      function sectionHTML(section, opts) {
+        var idx = sectionData.length;
+        sectionData.push(section);
+        var open = !!(opts && opts.open);
+        var body = open
+          ? section.subs.map(function (sub) { return subRowHTML(sub, section.tokens); }).join("")
+          : "";
+        return (
+          '<div class="section">' +
+            '<button class="cat-toggle" type="button" data-si="' + idx + '" aria-expanded="' + (open ? "true" : "false") + '" aria-controls="cat-body-' + idx + '">' +
+              '<span class="chevron">' + ICONS.chevron + "</span>" +
+              '<span class="cat-code">' + highlight(section.code, section.tokens) + "</span>" +
+              '<span class="cat-name">' + highlight(section.name, section.tokens) + "</span>" +
+              '<span class="cat-count">' + NUMBER_FORMAT.format(section.subs.length) + (section.filtered ? " / " + NUMBER_FORMAT.format(section.total) : "") + "</span>" +
+            "</button>" +
+            '<div class="cat-body" id="cat-body-' + idx + '" data-si="' + idx + '"' + (open ? "" : " hidden") + ">" + body + "</div>" +
+          "</div>"
+        );
+      }
+
+      function setSectionOpen(toggle, open, forceBuild) {
+        var idx = toggle.getAttribute("data-si");
+        var body = main.querySelector('.cat-body[data-si="' + idx + '"]');
+        if (!body) {
+          return;
+        }
+        if (open) {
+          if (!body.getAttribute("data-built") || forceBuild) {
+            var data = sectionData[Number(idx)];
+            if (data) {
+              body.innerHTML = data.subs.map(function (sub) { return subRowHTML(sub, data.tokens); }).join("");
+              body.setAttribute("data-built", "1");
+            }
+          }
+          body.hidden = false;
+          toggle.setAttribute("aria-expanded", "true");
+        } else {
+          body.hidden = true;
+          toggle.setAttribute("aria-expanded", "false");
+        }
+      }
+
+      function buildSections(categories, tokens, openAll) {
+        return categories.map(function (item) {
+          return sectionHTML(item, { open: openAll });
+        }).join("");
+      }
+
+      function emptyHTML(title, hint) {
+        return '<div class="empty-state"><b>' + esc(title) + "</b>" + esc(hint || "") + "</div>";
+      }
+
+      function allGlNodes() {
+        var nodes = [];
+        GL.forEach(function (root) {
+          if (root.groups) {
+            nodes = nodes.concat(root.groups);
+          } else {
+            nodes.push(root);
+          }
+        });
+        return nodes;
+      }
+
+      function footerHTML() {
+        var others = null;
+        for (var i = 0; i < GL.length; i++) {
+          if (GL[i].groups) {
+            others = GL[i];
+            break;
+          }
+        }
+        var parts = [fmt(T.footerSource)];
+        parts.push(fmt(T.footerTop, { n: NUMBER_FORMAT.format(GL.length) }));
+        if (others) {
+          parts.push(fmt(T.footerOthers, { n: NUMBER_FORMAT.format(others.groups.length) }));
+        }
+        parts.push(fmt(T.footerCat, { n: NUMBER_FORMAT.format(totalCatCount()) }));
+        parts.push(fmt(T.footerSub, { n: NUMBER_FORMAT.format(totalSubCount()) }));
+        return '<div class="footer-note">' + parts.join(" · ") + "</div>";
+      }
+
+      function totalCatCount() {
+        return allGlNodes().reduce(function (n, g) { return n + g.cats.length; }, 0);
+      }
+
+      function totalSubCount() {
+        return allGlNodes().reduce(function (n, g) { return n + g.subCount; }, 0);
+      }
+
+      function updateStats() {
+        document.getElementById("statGl").textContent = NUMBER_FORMAT.format(GL.length);
+        document.getElementById("statCat").textContent = NUMBER_FORMAT.format(totalCatCount());
+        document.getElementById("statSub").textContent = NUMBER_FORMAT.format(totalSubCount());
+        document.getElementById("glTotal").textContent = NUMBER_FORMAT.format(GL.length);
+      }
+
+      function renderOverview() {
+        var others = null;
+        var cards = GL.map(function (gl) {
+          var preview;
+          var stats;
+          if (gl.groups) {
+            others = gl;
+            preview = gl.groups.slice(0, 3).map(function (group) { return esc(group.name); }).join(" · ");
+            stats = fmt(T.glCountOnCard, {
+              n: "<b>" + NUMBER_FORMAT.format(gl.groups.length) + "</b>",
+              m: "<b>" + NUMBER_FORMAT.format(gl.subCount) + "</b>"
+            });
+          } else {
+            preview = gl.cats.slice(0, 3).map(function (cat) { return esc(cat.name); }).join(" · ");
+            stats = fmt(T.catCountOnCard, {
+              n: "<b>" + NUMBER_FORMAT.format(gl.cats.length) + "</b>",
+              m: "<b>" + NUMBER_FORMAT.format(gl.subCount) + "</b>"
+            });
+          }
+          return (
+            '<button class="gl-card" type="button" data-gl="' + esc(gl.name) + '">' +
+              '<span class="gl-card-name">' + esc(gl.name) + "</span>" +
+              '<span class="gl-card-stats">' + stats + "</span>" +
+              '<span class="gl-card-cats">' + esc(preview) + "</span>" +
+            "</button>"
+          );
+        }).join("");
+
+        main.innerHTML =
+          '<div class="page">' +
+            '<div class="view-head">' +
+              "<div><h2>" + esc(T.overviewTitle) + "</h2>" +
+              '<p class="view-sub">' + fmt(T.overviewSub, { n: "<b>" + NUMBER_FORMAT.format(GL.length) + "</b>" }) +
+              (others ? fmt(T.overviewOthers, { n: "<b>" + NUMBER_FORMAT.format(others.groups.length) + "</b>" }) : "") +
+              "</p></div>" +
+            "</div>" +
+            '<div class="gl-grid">' + cards + "</div>" +
+            footerHTML() +
+          "</div>";
+      }
+
+      function findGl(name) {
+        for (var i = 0; i < GL.length; i++) {
+          if (GL[i].name === name) {
+            return { gl: GL[i], parent: null };
+          }
+          if (GL[i].groups) {
+            for (var j = 0; j < GL[i].groups.length; j++) {
+              if (GL[i].groups[j].name === name) {
+                return { gl: GL[i].groups[j], parent: GL[i] };
+              }
+            }
+          }
+        }
+        return null;
+      }
+
+      function renderDetail() {
+        var found = findGl(state.selectedGl);
+        if (!found) {
+          state.selectedGl = null;
+          state.parentGl = null;
+          render();
+          return;
+        }
+        state.parentGl = found.parent ? found.parent.name : null;
+        if (found.gl.groups) {
+          renderGroupDetail(found.gl);
+          return;
+        }
+        var gl = found.gl;
+
+        var tokens = tokensOf(state.detailQuery);
+        var sections = [];
+        var matchedCatTotal = 0;
+        var matchedSubTotal = 0;
+
+        gl.cats.forEach(function (cat) {
+          var catHit = matches(cat.code + " " + cat.name, tokens);
+          var subs = tokens.length
+            ? cat.subs.filter(function (sub) { return matches(sub.code + " " + sub.name, tokens); })
+            : cat.subs;
+          if (!tokens.length || catHit || subs.length) {
+            sections.push({
+              code: cat.code,
+              name: cat.name,
+              subs: tokens.length ? subs : cat.subs,
+              total: cat.subs.length,
+              filtered: tokens.length > 0 && !catHit,
+              tokens: tokens
+            });
+            matchedCatTotal += 1;
+            matchedSubTotal += subs.length;
+          }
+        });
+
+        sectionData = [];
+        var openAll = tokens.length > 0;
+        var sectionsHTML = sections.length
+          ? buildSections(sections, tokens, openAll)
+          : emptyHTML(fmt(T.noDetailTitle, { name: gl.name }), T.noDetailHint);
+
+        main.innerHTML =
+          '<div class="page">' +
+            '<div class="detail-head">' +
+              '<button class="back-btn" type="button" data-action="back">' + ICONS.arrow + (state.parentGl ? fmt(T.detailBackParent, { name: esc(state.parentGl) }) : T.detailBackAll) + "</button>" +
+              '<div class="detail-title">' +
+                "<h2>" + esc(gl.name) + "</h2>" +
+                '<div class="badges">' +
+                  '<span class="badge badge-blue">' + fmt(T.catBadge, { n: NUMBER_FORMAT.format(gl.cats.length) }) + "</span>" +
+                  '<span class="badge badge-orange">' + fmt(T.subBadge, { n: NUMBER_FORMAT.format(gl.subCount) }) + "</span>" +
+                  (tokens.length ? '<span class="badge">' + fmt(T.matchBadge, { n: NUMBER_FORMAT.format(matchedSubTotal) }) + "</span>" : "") +
+                "</div>" +
+              "</div>" +
+              '<div class="detail-tools">' +
+                '<div class="detail-search">' + ICONS.search +
+                  '<input id="detailFilter" type="search" value="' + esc(state.detailQuery) + '" placeholder="' + esc(T.filterDetail) + '" autocomplete="off" aria-label="' + esc(T.filterDetail) + '">' +
+                "</div>" +
+                '<button class="tool-btn" type="button" data-action="expand-all">' + ICONS.expand + esc(T.expandAll) + "</button>" +
+                '<button class="tool-btn" type="button" data-action="collapse-all">' + ICONS.collapse + esc(T.collapseAll) + "</button>" +
+              "</div>" +
+            "</div>" +
+            '<div class="section-list">' + sectionsHTML + "</div>" +
+            footerHTML() +
+          "</div>";
+
+        bindDetailFilter();
+      }
+
+      function bindDetailFilter() {
+        var detailFilter = document.getElementById("detailFilter");
+        if (!detailFilter) {
+          return;
+        }
+        detailFilter.addEventListener("input", function () {
+          state.detailQuery = detailFilter.value;
+          renderDetail();
+          detailFilter.focus();
+          detailFilter.setSelectionRange(detailFilter.value.length, detailFilter.value.length);
+        });
+      }
+
+      function renderGroupDetail(root) {
+        var tokens = tokensOf(state.detailQuery);
+        sectionData = [];
+        var groupCount = 0;
+        var matchedSubTotal = 0;
+        var openGroups = tokens.length > 0;
+        var groupsHTML = root.groups.map(function (group, gi) {
+          var cats = [];
+          group.cats.forEach(function (cat) {
+            var catHit = matches(cat.code + " " + cat.name, tokens);
+            var subs = tokens.length
+              ? cat.subs.filter(function (sub) { return matches(sub.code + " " + sub.name, tokens); })
+              : cat.subs;
+            if (!tokens.length || catHit || subs.length) {
+              cats.push({
+                code: cat.code,
+                name: cat.name,
+                subs: tokens.length ? subs : cat.subs,
+                total: cat.subs.length,
+                filtered: tokens.length > 0 && !catHit,
+                tokens: tokens
+              });
+              matchedSubTotal += subs.length;
+            }
+          });
+          if (!cats.length) {
+            return "";
+          }
+          groupCount += 1;
+          return (
+            '<div class="group">' +
+              '<button class="group-toggle" type="button" data-group="' + gi + '" aria-expanded="' + (openGroups ? "true" : "false") + '" aria-controls="group-body-' + gi + '">' +
+                '<span class="chevron">' + ICONS.chevron + "</span>" +
+                '<span class="group-name">' + highlight(group.name, tokens) + "</span>" +
+                '<span class="group-count">' + fmt(T.groupCount, { n: NUMBER_FORMAT.format(group.cats.length), m: NUMBER_FORMAT.format(group.subCount) }) + "</span>" +
+              "</button>" +
+              '<div class="group-body" id="group-body-' + gi + '" data-group="' + gi + '"' + (openGroups ? "" : " hidden") + ">" +
+                buildSections(cats, tokens, openGroups) +
+              "</div>" +
+            "</div>"
+          );
+        }).join("");
+
+        main.innerHTML =
+          '<div class="page">' +
+            '<div class="detail-head">' +
+              '<button class="back-btn" type="button" data-action="back">' + ICONS.arrow + esc(T.detailBackAll) + "</button>" +
+              '<div class="detail-title">' +
+                "<h2>" + esc(root.name) + "</h2>" +
+                '<div class="badges">' +
+                  '<span class="badge badge-blue">' + fmt(T.glBadge, { n: NUMBER_FORMAT.format(groupCount) }) + "</span>" +
+                  '<span class="badge badge-orange">' + fmt(T.subBadge, { n: NUMBER_FORMAT.format(root.subCount) }) + "</span>" +
+                  (tokens.length ? '<span class="badge">' + fmt(T.matchBadge, { n: NUMBER_FORMAT.format(matchedSubTotal) }) + "</span>" : "") +
+                "</div>" +
+              "</div>" +
+              '<div class="detail-tools">' +
+                '<div class="detail-search">' + ICONS.search +
+                  '<input id="detailFilter" type="search" value="' + esc(state.detailQuery) + '" placeholder="' + esc(fmt(T.filterRoot, { name: root.name })) + '" autocomplete="off" aria-label="' + esc(fmt(T.filterRoot, { name: root.name })) + '">' +
+                "</div>" +
+                '<button class="tool-btn" type="button" data-action="expand-all">' + ICONS.expand + esc(T.expandAll) + "</button>" +
+                '<button class="tool-btn" type="button" data-action="collapse-all">' + ICONS.collapse + esc(T.collapseAll) + "</button>" +
+              "</div>" +
+            "</div>" +
+            (groupsHTML ? '<div class="section-list">' + groupsHTML + "</div>" : emptyHTML(fmt(T.noDetailTitle, { name: root.name }), T.noDetailHint)) +
+            footerHTML() +
+          "</div>";
+
+        bindDetailFilter();
+      }
+
+      function setGroupOpen(btn, open) {
+        var idx = btn.getAttribute("data-group");
+        var body = main.querySelector('.group-body[data-group="' + idx + '"]');
+        if (!body) {
+          return;
+        }
+        btn.setAttribute("aria-expanded", open ? "true" : "false");
+        body.hidden = !open;
+      }
+
+      function renderSearch(query) {
+        var tokens = tokensOf(query);
+        if (!tokens.length) {
+          renderOverview();
+          return;
+        }
+
+        var groups = [];
+        GL.forEach(function (root) {
+          var sources = root.groups || [root];
+          sources.forEach(function (gl) {
+            var group = null;
+            gl.cats.forEach(function (cat) {
+              var catHit = matches(cat.code + " " + cat.name, tokens);
+              var subs = catHit
+                ? cat.subs
+                : cat.subs.filter(function (sub) { return matches(sub.code + " " + sub.name, tokens); });
+              if (catHit || subs.length) {
+                if (!group) {
+                  group = { gl: gl, cats: [] };
+                  groups.push(group);
+                }
+                group.cats.push({ code: cat.code, name: cat.name, subs: subs, total: cat.subs.length, filtered: !catHit, tokens: tokens });
+              }
+            });
+          });
+        });
+
+        var total = groups.reduce(function (n, g) {
+          return n + g.cats.reduce(function (m, c) { return m + c.subs.length; }, 0);
+        }, 0);
+
+        sectionData = [];
+        var openAll = total <= 400;
+        var groupsHTML = groups.map(function (group) {
+          var cats = group.cats.map(function (cat) {
+            return sectionHTML(cat, { open: openAll });
+          }).join("");
+          return (
+            '<section class="result-group">' +
+              '<button class="gl-badge" type="button" data-gl="' + esc(group.gl.name) + '">' +
+                '<span class="gl-badge-name">' + highlight(group.gl.name, tokens) + "</span>" +
+                '<span class="gl-badge-count">' + fmt(T.resultGroupCount, {
+                  n: NUMBER_FORMAT.format(group.cats.length),
+                  m: NUMBER_FORMAT.format(group.cats.reduce(function (n, c) { return n + c.subs.length; }, 0))
+                }) + "</span>" +
+              "</button>" +
+              '<div class="section-list">' + cats + "</div>" +
+            "</section>"
+          );
+        }).join("");
+
+        main.innerHTML =
+          '<div class="page">' +
+            '<div class="view-head">' +
+              "<div><h2>" + esc(T.searchTitle) + "</h2>" +
+              '<p class="view-sub">' + fmt(T.searchSub, {
+                n: "<b>" + NUMBER_FORMAT.format(total) + "</b>",
+                m: "<b>" + NUMBER_FORMAT.format(groups.length) + "</b>"
+              }) + "</p></div>" +
+            "</div>" +
+            (groups.length ? groupsHTML : emptyHTML(T.noMatchTitle, T.noMatchHint)) +
+            footerHTML() +
+          "</div>";
+      }
+
+      function renderSidebar() {
+        var tokens = tokensOf(glFilterInput.value);
+        var filtered = GL.filter(function (gl) { return matches(gl.name, tokens); });
+        var isOverviewActive = !state.selectedGl;
+        var items = (
+          '<button class="gl-item' + (isOverviewActive ? " is-active" : "") + '" type="button" data-gl="">' +
+            '<span class="gl-item-name">' + esc(T.all) + "</span>" +
+            '<span class="gl-item-count">' + NUMBER_FORMAT.format(GL.length) + "</span>" +
+          "</button>"
+        );
+        if (filtered.length) {
+          items += filtered.map(function (gl) {
+            var active = state.selectedGl === gl.name;
+            var count = gl.groups ? gl.groups.length : gl.subCount;
+            return (
+              '<button class="gl-item' + (active ? " is-active" : "") + '" type="button" data-gl="' + esc(gl.name) + '">' +
+                '<span class="gl-item-name">' + esc(gl.name) + "</span>" +
+                '<span class="gl-item-count">' + NUMBER_FORMAT.format(count) + "</span>" +
+              "</button>"
+            );
+          }).join("");
+        } else {
+          items += '<div class="gl-empty">' + esc(T.noGl) + "</div>";
+        }
+        glList.innerHTML = items;
+      }
+
+      function render() {
+        updateStats();
+        renderSidebar();
+        var query = globalSearch.value.trim();
+        if (query) {
+          renderSearch(query);
+        } else if (state.selectedGl) {
+          renderDetail();
+        } else {
+          renderOverview();
+        }
+      }
+
+      function navigateToGl(name) {
+        globalSearch.value = "";
+        clearSearch.hidden = true;
+        state.detailQuery = "";
+        var found = name ? findGl(name) : null;
+        state.parentGl = found && found.parent ? found.parent.name : null;
+        state.selectedGl = name || null;
+        render();
+        main.scrollTop = 0;
+      }
+
+      function copyCode(text, btn) {
+        function feedback() {
+          var old = btn.innerHTML;
+          btn.innerHTML = ICONS.check;
+          btn.classList.add("copied");
+          window.setTimeout(function () {
+            btn.innerHTML = old;
+            btn.classList.remove("copied");
+          }, 1100);
+        }
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(feedback, function () {
+            fallbackCopy(text);
+            feedback();
+          });
+        } else {
+          fallbackCopy(text);
+          feedback();
+        }
+      }
+
+      function fallbackCopy(text) {
+        var ta = document.createElement("textarea");
+        ta.value = text;
+        ta.style.position = "fixed";
+        ta.style.opacity = "0";
+        document.body.appendChild(ta);
+        ta.select();
+        try {
+          document.execCommand("copy");
+        } catch (err) {}
+        ta.remove();
+      }
+
+      main.addEventListener("click", function (event) {
+        var glBtn = event.target.closest("[data-gl]");
+        if (glBtn) {
+          navigateToGl(glBtn.getAttribute("data-gl"));
+          return;
+        }
+
+        var groupToggle = event.target.closest(".group-toggle");
+        if (groupToggle) {
+          setGroupOpen(groupToggle, groupToggle.getAttribute("aria-expanded") !== "true");
+          return;
+        }
+
+        var toggle = event.target.closest(".cat-toggle");
+        if (toggle) {
+          setSectionOpen(toggle, toggle.getAttribute("aria-expanded") !== "true");
+          return;
+        }
+
+        var copyBtn = event.target.closest(".copy-btn");
+        if (copyBtn) {
+          copyCode(copyBtn.getAttribute("data-copy"), copyBtn);
+          return;
+        }
+
+        var actionBtn = event.target.closest("[data-action]");
+        if (actionBtn) {
+          var action = actionBtn.getAttribute("data-action");
+          if (action === "back") {
+            navigateToGl(state.parentGl || "");
+          } else if (action === "expand-all") {
+            main.querySelectorAll(".group-toggle").forEach(function (t) { setGroupOpen(t, true); });
+            main.querySelectorAll(".cat-toggle").forEach(function (t) { setSectionOpen(t, true); });
+          } else if (action === "collapse-all") {
+            main.querySelectorAll(".cat-toggle").forEach(function (t) { setSectionOpen(t, false); });
+            main.querySelectorAll(".group-toggle").forEach(function (t) { setGroupOpen(t, false); });
+          }
+        }
+      });
+
+      glList.addEventListener("click", function (event) {
+        var btn = event.target.closest("[data-gl]");
+        if (btn) {
+          navigateToGl(btn.getAttribute("data-gl"));
+        }
+      });
+
+      glFilterInput.addEventListener("input", function () {
+        renderSidebar();
+      });
+
+      var searchTimer = null;
+      globalSearch.addEventListener("input", function () {
+        clearSearch.hidden = !globalSearch.value;
+        window.clearTimeout(searchTimer);
+        searchTimer = window.setTimeout(function () {
+          if (globalSearch.value.trim()) {
+            state.selectedGl = null;
+          }
+          render();
+        }, 90);
+      });
+
+      clearSearch.addEventListener("click", function () {
+        globalSearch.value = "";
+        clearSearch.hidden = true;
+        render();
+        globalSearch.focus();
+      });
+
+      document.querySelectorAll(".lang-btn").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          setLang(btn.getAttribute("data-lang"));
+        });
+      });
+
+      setLang(currentLang);
+    })();
+  </script>
+</body>
+</html>
