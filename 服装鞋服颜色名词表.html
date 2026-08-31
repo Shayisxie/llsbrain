@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>服装鞋服颜色名词表</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: #f4f5f7;
+  color: #1a1a1a;
+  padding: 40px 24px;
+}
+.container { max-width: 1200px; margin: 0 auto; }
+h1 {
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+  margin-bottom: 4px;
+}
+.subtitle {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 32px;
+  font-weight: 400;
+}
+.color-family {
+  margin-bottom: 36px;
+}
+.family-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 18px;
+  font-weight: 600;
+  padding: 12px 16px;
+  background: #fff;
+  border-radius: 10px;
+  margin-bottom: 8px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+}
+.family-header .glyph { font-size: 20px; }
+.family-header .count {
+  font-size: 13px;
+  font-weight: 400;
+  color: #999;
+  margin-left: auto;
+}
+.color-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 8px;
+}
+.color-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  background: #fff;
+  border-radius: 10px;
+  padding: 14px 16px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  transition: box-shadow 0.15s;
+}
+.color-card:hover {
+  box-shadow: 0 3px 10px rgba(0,0,0,0.10);
+}
+.swatch {
+  flex-shrink: 0;
+  width: 52px;
+  height: 52px;
+  border-radius: 8px;
+  margin-top: 1px;
+}
+.swatch.bordered { border: 1px solid #d0d0d0; }
+.card-body { min-width: 0; }
+.card-body .names {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 4px;
+}
+.card-body .eng {
+  font-size: 13px;
+  font-weight: 600;
+  color: #333;
+}
+.card-body .chn {
+  font-size: 13px;
+  color: #888;
+  font-weight: 400;
+}
+.card-body .desc {
+  font-size: 12px;
+  line-height: 1.5;
+  color: #555;
+  margin-bottom: 6px;
+}
+.card-body .nike {
+  font-size: 11px;
+  line-height: 1.5;
+  color: #888;
+  background: #f6f6f6;
+  padding: 4px 8px;
+  border-radius: 5px;
+}
+.nike-label {
+  font-weight: 600;
+  color: #666;
+}
+@media (max-width: 720px) {
+  .color-grid { grid-template-columns: 1fr; }
+  body { padding: 20px 12px; }
+  h1 { font-size: 22px; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>服装鞋服颜色名词表</h1>
+<p class="subtitle">共 53 个色名 · 按色系分组 · 附 Nike 式色号参考</p>
+<div class="color-family">
+  <div class="family-header"><span class="glyph">🔴</span>红色系<span class="count">7 个色名</span></div>
+  <div class="color-grid">
+    <div class="color-card">
+      <div class="swatch " style="background:#E31837"></div>
+      <div class="card-body">
+        <div class="names"><span class="eng">True Red / Racing Red</span><span class="chn">正红 / 大红 / 赛车红</span></div>
+        <div class="desc">标准色环红，高饱和度，无冷暖偏移。用于基础款、运动标识、球队配色</div>
+        <div class="nike"><span class="nike-label">Nike 参考 · </span>Closest Nike: 'University Red' / 'Varsity Red'。Nike 常用 Varsity/University 前缀表示高饱和标准红，色号接近 Pantone 186C。在 Air Force 1 / Air Jordan 系列里 'University Red' 是保留色号（每季都返单）</div>
+      </div>
+    </div>
+    <div class="color-card">
+      <div class="swatch " style="background:#800020"></div>
+      <div class="card-body">
+        <div class="names"><span class="eng">Burgundy / Bordeaux</span><span class="chn">酒红 / 勃艮第</span></div>
+        <div class="desc">深红带紫，低明度。秋冬面料、丝绒、皮鞋主力色。比 Maroon 更偏紫、比 Cordovan 更偏红</div>
+        <div class="nike"><span class="nike-label">Nike 参考 · </span>Closest Nike: 'Burgundy Crush' / 'Deep Burgundy'。Nike 在 Dunk / Air Max 系列使用 'Burgundy Crush'（偏紫深红）和 'Dark Team Red'（偏棕深红）区分不同暖冷的深红款</div>
+      </div>
+    </div>
+    <div class="color-card">
+      <div class="swatch " style="background:#CB4154"></div>
+      <div class="card-body">
+        <div class="names"><span class="eng">Brick Red / Terra Cotta</span><span class="chn">砖红 / 陶土红</span></div>
+        <div class="desc">红中带明显棕/橙色底，暖感强。常用于工装靴、帆布鞋、复古运动系列</div>
+        <div class="nike"><span class="nike-label">Nike 参考 · </span>Closest Nike: 'Clay Court' / 'Terracotta'。Nike 的 Terra Cotta 常用于 Lifestyle 鞋款（如 Air Max 1 'Terra Cotta'），偏暖棕红，和运动线的 Varsity Red 形成明显区隔</div>
+      </div>
+    </div>
+    <div class="color-card">
+      <div class="swatch " style="background:#FF2400"></div>
+      <div class="card-body">
+        <div class="names"><span class="eng">Scarlet</span><span class="chn">猩红</span></div>
+        <div class="desc">比正红略偏橙，明度稍高。户外冲锋衣、跑步鞋、运动鞋标识</div>
+        <div class="nike"><span class="nike-label">Nike 参考 · </span>Closest Nike: 'Volt'（偏荧光橙红）/ 'Fire Red'。Nike 的 'Fire Red' 是 Jordan 系列经典色，介于 Scarlet 和 True Red 之间，带微弱橙底</div>
+      </div>
+    </div>
+    <div class="color-card">
+      <div class="swatch " style="background:#D2042D"></div>
+      <div class="card-body">
+        <div class="names"><span class="eng">Cherry Red</span><span class="chn">樱桃红</span></div>
+        <div class="desc">偏冷调鲜红，带一点蓝底。女鞋、少女装、板鞋</div>
+        <div class="nike"><span class="nike-label">Nike 参考 · </span>Closest Nike: 'Chili Red' / 'Gym Red'。Nike 的 'Gym Red' 是偏冷、偏深一点的鲜红，常用于 Jordan 复刻款；'Chili Red' 则带更明显的蓝底，更接近实际樱桃色</div>
+      </div>
+    </div>
+    <div class="color-card">
+      <div class="swatch " style="background:#800000"></div>
+      <div class="card-body">
+        <div class="names"><span class="eng">Maroon</span><span class="chn">栗红 / 褐红</span></div>
+        <div class="desc">深红带棕，比 Burgundy 更棕更暖，明度较低。男鞋、皮靴、运动复古老爹鞋</div>
+        <div class="nike"><span class="nike-label">Nike 参考 · </span>Closest Nike: 'Dark Team Red' / 'Team Maroon'。Nike 的 'Team Maroon' 是经典复刻色号，偏棕红，和偏紫的 'Burgundy Crush' 形成两个方向的深红分支</div>
+      </div>
+    </div>
+    <div class="color-card">
+      <div class="swatch " style="background:#DC143C"></div>
+      <div class="card-body">
+        <div class="names"><span class="eng">Crimson</span><span class="chn">绯红</span></div>
+        <div class="desc">中等明度、偏冷的高饱和红。学术/校园配色、女装装饰线</div>
+        <div class="nike"><span class="nike-label">Nike 参考 · </span>Closest Nike: 'Crimson'（Nike 直接使用该名）。在 Nike 色谱里 Crimson 是偏蓝底的亮红，常用于女子训练线和校服风单品</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="color-family">
+  <div class="family-header"><span class="glyph">🔵</span>蓝色系<span class="count">7 个色名</span></div>
+  <div class="color-grid">
+    <div class="color-card">
+      <div class="swatch " style="background:#1B2A4A"></div>
+      <div class="card-body">
+        <div class="names"><span class="eng">Navy / Midnight Navy</span><span class="chn">藏青 / 海军蓝</span></div>
+        <div class="desc">极深蓝，近黑。通勤装、制服、正装鞋的默认蓝。Navy 偏中性，Midnight Navy 更暗</div>
+        <div class="nike"><span class="nike-label">Nike 参考 · </span>Closest Nike: 'Navy' / 'Midnight Navy'。Nike 的 'Midnight Navy' 是 Jordan 系列经典色（如 AJ1 'Midnight Navy'），比普通 Navy 更深、接近黑色但保留蓝底</div>
+      </div>
+    </div>
+    <div class="color-card">
+      <div class="swatch " style="background:#4169E1"></div>
+      <div class="card-body">
+        <div class="names"><span class="eng">Royal Blue</span><span class="chn">宝蓝 / 皇家蓝</span></div>
+        <div class="desc">高饱和度、中等明度的纯蓝。运动服、运动鞋标识、球队代表色</div>
+        <div class="nike"><span class="nike-label">Nike 参考 · </span>Closest Nike: 'Game Royal' / 'Blue Void'。Nike 的 'Game Royal' 是经典高饱和宝蓝色号，常用于 Dunk / Air Max；'Blue Void' 是近年的深宝蓝替代色</div>
+      </div>
+    </div>
+    <div class="color-card">
+      <div class="swatch " style="background:#2E0854"></div>
+      <div class="card-body">
+        <div class="names"><span class="eng">Indigo</span><span class="chn">靛蓝</span></div>
+        <div class="desc">有紫底的深沉蓝，对应天然靛蓝染料。牛仔制品专属色名，在牛仔品类里几乎独立于普通蓝色体系</div>
+        <div class="nike"><span class="nike-label">Nike 参考 · </span>Closest Nike: 'Indigo Haze' / 'Indigo Force'。Nike 的 Indigo 系列（如 Air Force 1 'Indigo'）利用靛蓝的天然染料联想来定位 Lifestyle 复古产品，靛蓝也用于 Jordan 复刻系列的牛仔裤材质拼接</div>
+      </div>
+    </div>
+    <div class="color-card">
+      <div class="swatch " style="background:#B6D0E2"></div>
+      <div class="card-body">
+        <div class="names"><span class="eng">Misty Blue / Powder Blue</span><span class="chn">雾霾蓝 / 粉尘蓝</span></div>
+        <div class="desc">蓝+大量灰，饱和度低。当代简约/性冷淡风格、女装针织、绒面革鞋面</div>
+        <div class="nike"><span class="nike-label">Nike 参考 · </span>Closest Nike: 'Powder Blue' / 'Light Smoke Grey'。Nike 的 'Powder Blue' 是 AJ3/4 的经典复刻色号，偏灰蓝；'Light Smoke Grey' 则更偏中性灰带蓝底</div>
+      </div>
+    </div>
+    <div class="color-card">
+      <div class="swatch " style="background:#003366"></div>
+      <div class="card-body">
+        <div class="names"><span class="eng">Blue Void / Hyper Blue</span><span class="chn">克莱因蓝 / 电弧蓝</span></div>
+        <div class="desc">极饱和、无明度调和的纯蓝。设计师联名款、潮牌标识、运动训练线</div>
+        <div class="nike"><span class="nike-label">Nike 参考 · </span>Closest Nike: 'Hyper Blue' / 'Blue Void'。Nike 的 'Hyper Blue' 是 Zoom 系列跑鞋的标志色号；'Blue Void' 是近年 Dunk 系列的高饱和蓝，比 Royal Blue 更深更沉</div>
+      </div>
+    </div>
+    <div class="color-card">
+      <div class="swatch " style="background:#1560BD"></div>
+      <div class="card-body">
+        <div class="names"><span class="eng">Denim Blue</span><span class="chn">牛仔蓝</span></div>
+        <div class="desc">经纱染靛蓝、纬纱本白的织物质感蓝。唯一按面料命名的蓝色，在鞋面上通常指仿牛仔布料的染色效果</div>
+        <div class="nike"><span class="nike-label">Nike 参考 · </span>Closest Nike: 'Indigo Denim' / 'Washed Denim'。Nike 在 'Air Max 1 Denim' 系列里用 'Washed Denim' 描述水洗效果靛蓝，而 'Indigo Denim' 则指未水洗的深原色蓝</div>
+      </div>
+    </div>
+    <div class="color-card">
+      <div class="swatch " style="background:#00BFFF"></div>
+      <div class="card-body">
+        <div class="names"><span class="eng">Electric Blue / Volt</span><span class="chn">电光蓝 / 荧光蓝</span></div>
+        <div class="desc">高饱和带荧光感。跑步鞋、运动训练线、户外警示标识</div>
+        <div class="nike"><span class="nike-label">Nike 参考 · </span>Closest Nike: 'Volt' / 'Electric Green'（注意 Nike 的 Volt 偏向荧光黄绿）。纯荧光蓝方向 Nike 用 'Atomic Teal'、'Hyper Punch'（偏紫蓝荧光）等季抛式命名</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="color-family">
+  <div class="family-header"><span class="glyph">🟢</span>绿色系<span class="count">7 个色名</span></div>
+  <div class="color-grid">
+    <div class="color-card">
+      <div class="swatch " style="background:#6B8E23"></div>
+      <div class="card-body">
+        <div class="names"><span class="eng">Olive / Army Green</span><span class="chn">军绿 / 橄榄绿</span></div>
+        <div class="desc">黄底暗绿，低明度。工装、户外、机能风的根色。Olive 比 Army Green 偏棕一些</div>
+        <div class="nike"><span class="nike-label">Nike 参考 · </span>Closest Nike: 'Olive Aura' / 'Dark Olive'。Nike 的 'Olive Aura' 是 AF1 / Dunk 经典军绿色号；'Dark Olive' 常见于 ACG 户外线，色调更深更哑光</div>
+      </div>
+    </div>
+    <div class="color-card">
+      <div class="swatch " style="background:#1B4D3E"></div>
+      <div class="card-body">
+        <div class="names"><span class="eng">Forest Green / Dark Green</span><span class="chn">墨绿 / 森林绿</span></div>
+        <div class="desc">深绿带黑，几乎无黄底。皮革、羊毛大衣、皮鞋包袋</div>
+        <div class="nike"><span class="nike-label">Nike 参考 · </span>Closest Nike: 'Forest Green'（Nike 直接使用）。Nike 的 'Forest Green' 是 Jordan 复刻的经典深绿色号（如 AJ5 'Forest Green'），偏冷深绿</div>
+      </div>
+    </div>
+    <div class="color-card">
+      <div class="swatch " style="background:#008080"></div>
+      <div class="card-body">
+        <div class="names"><span class="eng">Teal / Turquoise</span><span class="chn">松石绿 / 蒂芙尼蓝</span></div>
+        <div class="desc">绿偏蓝，高明度。女装配饰、运动休闲、板鞋</div>
+        <div class="nike"><span class="nike-label">Nike 参考 · </span>Closest Nike: 'Teal' / 'Turquoise Blue'。Nike 的 'Teal' 常用于女子训练线和 Air Max 系列；'Turquoise' 则更蓝更亮，常用于夏季限定配色</div>
+      </div>
+    </div>
+    <div class="color-card">
+      <div class="swatch " style="background:#8A9A8A"></div>
+      <div class="card-body">
+        <div class="names"><span class="eng">Sage Green</span><span class="chn">鼠尾草绿</span></div>
+        <div class="desc">绿+灰+极少量紫，饱和度很低。极简女装、针织羊绒、复古跑鞋</div>
+        <div class="nike"><span class="nike-label">Nike 参考 · </span>Closest Nike: 'Sage' / 'Light Orewood Brown'。Nike 的 'Sage' 色调非常浅淡偏灰，NB（New Balance）使用更频繁；Nike 的同维度色号还有 'Ghost Green'（更灰）</div>
+      </div>
+    </div>
+    <div class="color-card">
+      <div class="swatch " style="background:#5A7A3A"></div>
+      <div class="card-body">
+        <div class="names"><span class="eng">Moss Green</span><span class="chn">苔绿</span></div>
+        <div class="desc">介于军绿和土黄之间，黄底明显。户外鞋履、登山靴、越野鞋</div>
+        <div class="nike"><span class="nike-label">Nike 参考 · </span>Closest Nike: 'Moss Green' / 'Khaki Green'。Nike ACG 系列常用 Moss Green 命名户外线配色，偏土黄绿底，和偏冷调橄榄绿形成区分</div>
+      </div>
+    </div>
+    <div class="color-card">
+      <div class="swatch " style="background:#98FF98"></div>
+      <div class="card-body">
+        <div class="names"><span class="eng">Mint Green</span><span class="chn">薄荷绿</span></div>
+        <div class="desc">绿偏蓝，明度高、饱和度中等。春夏女装、板鞋、运动凉鞋</div>
+        <div class="nike"><span class="nike-label">Nike 参考 · </span>Closest Nike: 'Mint' / 'Mint Foam'。Nike 的 'Mint Foam' 是近年 Dunk / Air Max 系列常用色号，比纯 Mint 更偏浅蓝绿、偏粉感</div>
+      </div>
+    </div>
+    <div class="color-card">
+      <div class="swatch " style="background:#BFFF00"></div>
+      <div class="card-body">
+        <div class="names"><span class="eng">Lime Green / Volt</span><span class="chn">荧光绿 / 青柠绿</span></div>
+        <div class="desc">极饱和、带黄色荧光底。户外警示、跑鞋、运动训练标识</div>
+        <div class="nike"><span class="nike-label">Nike 参考 · </span>Closest Nike: 'Volt' / 'Lime Blast'。Nike 的 'Volt' 是品牌标志性荧光色，介于黄绿之间，用于跑步鞋和训练装备；'Lime Blast' 更偏黄绿</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="color-family">
+  <div class="family-header"><span class="glyph">🟤</span>米色/棕色系<span class="count">8 个色名</span></div>
+  <div class="color-grid">
+    <div class="color-card">
+      <div class="swatch bordered" style="background:#F5F0E1"></div>
+      <div class="card-body">
+        <div class="names"><span class="eng">Beige / Natural Beige</span><span class="chn">米色 / 本米色</span></div>
+        <div class="desc">白+浅棕黄的基准中性色，介于 Off-White 和 Khaki 之间。比米白多一分棕底、比卡其浅得多且几乎不含黄绿底。服装行业最基础的安全色之一——风衣、西裤、平底鞋、帆布鞋的经典色。区分于 Oatmeal（暖燕麦感）、Sand（偏黄）、Latte（偏灰棕底）</div>
+        <div class="nike"><span class="nike-label">Nike 参考 · </span>Closest Nike: 'Beige' / 'Flax' / 'Birch'。Nike 在 Air Force 1 'Flax' 中使用 Flax 色号（偏暖米色），在编织鞋面中使用 'Birch'（更冷更白）。Nike 的纯 Beige 色号较少单独命名，更多用 'Sail'（做旧白米）或 'Flax'（暖米）来替代。但在运动休闲通勤品类中 Beige 是一个独立的基础色号，和 Oatmeal / Sand 形成明度和冷暖梯度</div>
+      </div>
+    </div>
+    <div class="color-card">
+      <div class="swatch " style="background:#C3B091"></div>
+      <div class="card-body">
+        <div class="names"><span class="eng">Khaki</span><span class="chn">卡其</span></div>
+        <div class="desc">黄棕底的中明度中性色。起源于英军制服布，现为裤装、风衣、板鞋基础色。偏黄绿底（军装起源）</div>
+        <div class="nike"><span class="nike-label">Nike 参考 · </span>Closest Nike: 'Khaki' / 'Gum Brown'。Nike 的 'Khaki' 常用于 Lifestyle 鞋款的中底和外底；'Gum Brown' 则是胶底的颜色代号——卡其在鞋类里常指织带和内衬色</div>
+      </div>
+    </div>
+    <div class="color-card">
+      <div class="swatch " style="background:#C19A6B"></div>
+      <div class="card-body">
+        <div class="names"><span class="eng">Camel</span><span class="chn">驼色</span></div>
+        <div class="desc">比卡其偏红暖、明度略高。羊毛大衣、皮具的经典色。偏红棕底（动物毛皮联想）</div>
+        <div class="nike"><span class="nike-label">Nike 参考 · </span>Closest Nike: 'Camel Tan' / 'Sail'（偏浅方向）。Nike 的 'Camel' 色号较少直接使用，更常用 'Tan'（出现在 Air Max 1 等 Lifestyle 款），比驼色浅一度</div>
+      </div>
+    </div>
+    <div class="color-card">
+      <div class="swatch " style="background:#DFD2C0"></div>
+      <div class="card-body">
+        <div class="names"><span class="eng">Oatmeal</span><span class="chn">燕麦色</span></div>
+        <div class="desc">米白带极浅暖棕底，明度最高。针织衫、羊绒、软质鞋面</div>
+        <div class="nike"><span class="nike-label">Nike 参考 · </span>Closest Nike: 'Oatmeal' / 'Flax'。Nike 的 'Oatmeal' 是 Air Force 1 'Flax' 系列的经典色号，介于米白和浅棕之间，在秋冬款和编织鞋面中出现频率极高</div>
+      </div>
+    </div>
+    <div class="color-card">
+      <div class="swatch " style="background:#C2B280"></div>
+      <div class="card-body">
+        <div class="names"><span class="eng">Sand</span><span class="chn">沙色</span></div>
+        <div class="desc">比卡其更浅、更黄。户外鞋、帆布鞋、沙漠靴</div>
+        <div class="nike"><span class="nike-label">Nike 参考 · </span>Closest Nike: 'Sand Drift' / 'Coconut Milk'。Nike 的 'Sand Drift' 是暖调浅沙色，常见于 Roshe Run / Cortez 等 Lifestyle 款；'Coconut Milk' 偏冷白沙</div>
+      </div>
+    </div>
+    <div class="color-card">
+      <div class="swatch " style="background:#6F4E37"></div>
+      <div class="card-body">
+        <div class="names"><span class="eng">Mocha / Espresso</span><span class="chn">摩卡 / 咖啡色</span></div>
+        <div class="desc">中等明度的暖棕，接近咖啡奶色。皮鞋、包袋、秋冬鞋款</div>
+        <div class="nike"><span class="nike-label">Nike 参考 · </span>Closest Nike: 'Mocha' / 'Espresso'。Nike 的 'Mocha' 是 AJ3 / AJ4 的经典配色色号（如 'Mocha' 配色方案）；'Espresso' 更深更浓，常用于皮质鞋面</div>
+      </div>
+    </div>
+    <div class="color-card">
+      <div class="swatch " style="background:#5C3A21"></div>
+      <div class="card-body">
+        <div class="names"><span class="eng">Chocolate / Brown Bean</span><span class="chn">巧克力色</span></div>
+        <div class="desc">深棕带红底。男鞋、皮靴、马丁靴</div>
+        <div class="nike"><span class="nike-label">Nike 参考 · </span>Closest Nike: 'Chocolate' / 'Dark Chocolate'。Nike 的 'Chocolate' 常用于 Air Force 1 Premium 系列，偏暖深棕；'Dark Chocolate' 接近纯黑棕</div>
+      </div>
+    </div>
+    <div class="color-card">
+      <div class="swatch " style="background:#C8B8A8"></div>
+      <div class="card-body">
+        <div class="names"><span class="eng">Latte</span><span class="chn">拿铁色</span></div>
+        <div class="desc">米白+浅棕交织感，比燕麦多一分冷。女装基础款、小白鞋麂皮点缀</div>
+        <div class="nike"><span class="nike-label">Nike 参考 · </span>Closest Nike: 'Latte' / 'Cream'。Nike 的 'Latte' 是近年 Dunk Low 常用色号，比 Oatmeal 更冷、更偏灰底；'Cream' 则更暖更白</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="color-family">
+  <div class="family-header"><span class="glyph">⚪</span>灰色系<span class="count">5 个色名</span></div>
+  <div class="color-grid">
+    <div class="color-card">
+      <div class="swatch " style="background:#36454F"></div>
+      <div class="card-body">
+        <div class="names"><span class="eng">Charcoal / Dark Grey</span><span class="chn">炭灰</span></div>
+        <div class="desc">近乎黑的深灰。运动裤、机能面料、跑鞋网面</div>
+        <div class="nike"><span class="nike-label">Nike 参考 · </span>Closest Nike: 'Charcoal' / 'Anthracite'。Nike 的 'Anthracite' 是比 Charcoal 更深的炭灰色号，常用于 Jordan 和 ACG 系列；'Charcoal' 略浅半档</div>
+      </div>
+    </div>
+    <div class="color-card">
+      <div class="swatch " style="background:#A9ACB6"></div>
+      <div class="card-body">
+        <div class="names"><span class="eng">Smoke Grey / Medium Grey</span><span class="chn">烟灰 / 中灰</span></div>
+        <div class="desc">中性中等明度灰。通勤款基础色、运动服镶边、鞋面网布</div>
+        <div class="nike"><span class="nike-label">Nike 参考 · </span>Closest Nike: 'Smoke Grey' / 'Medium Grey'。Nike 的 'Smoke Grey' 是 AJ1 复刻的经典灰色号，比 Cool Grey 深一度；'Cool Grey' 带蓝底，'Smoke Grey' 带棕底</div>
+      </div>
+    </div>
+    <div class="color-card">
+      <div class="swatch " style="background:#B6B6B6"></div>
+      <div class="card-body">
+        <div class="names"><span class="eng">Heather Grey</span><span class="chn">花灰</span></div>
+        <div class="desc">黑+白纤维混纺的杂色灰，有织物质感。卫衣、T恤专属色——是按织法命名的灰色，不是纯色染色</div>
+        <div class="nike"><span class="nike-label">Nike 参考 · </span>Closest Nike: 'Heather Grey' / 'Grey Heather'。Nike 在 Fleece（抓绒）产品线大量使用 Heather Grey，区别于 Dri-FIT 运动服的纯色灰。Heather 前缀表示混色纱效果</div>
+      </div>
+    </div>
+    <div class="color-card">
+      <div class="swatch bordered" style="background:#E3DFD3"></div>
+      <div class="card-body">
+        <div class="names"><span class="eng">Pearl Grey</span><span class="chn">珍珠灰</span></div>
+        <div class="desc">浅灰带极微暖光感。女装、丝质面料、皮革鞋面</div>
+        <div class="nike"><span class="nike-label">Nike 参考 · </span>Closest Nike: 'Pearl' / 'Platinum'。Nike 的 'Platinum' 是比 Pearl Grey 略深的暖调浅灰，常用于 Lifestyle 鞋款的皮革部分；'Pearl' 更亮更白</div>
+      </div>
+    </div>
+    <div class="color-card">
+      <div class="swatch " style="background:#8C8F94"></div>
+      <div class="card-body">
+        <div class="names"><span class="eng">Cement Grey</span><span class="chn">水泥灰</span></div>
+        <div class="desc">冷调、粗粝质感的灰色。当代极简建筑感风格，也是 AJ3/4 标志性配色元素</div>
+        <div class="nike"><span class="nike-label">Nike 参考 · </span>Closest Nike: 'Cement Grey'（Nike 标志性色号）。'Cement Grey' 在 AJ3 的 'White Cement' / 'Black Cement' 中作为斑驳纹理出现，是 Nike 独有命名，已成为灰色在球鞋文化里的ICON色</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="color-family">
+  <div class="family-header"><span class="glyph">⬜</span>白色/米白系<span class="count">4 个色名</span></div>
+  <div class="color-grid">
+    <div class="color-card">
+      <div class="swatch bordered" style="background:#FFFFFF"></div>
+      <div class="card-body">
+        <div class="names"><span class="eng">White / Pure White</span><span class="chn">纯白 / 本白</span></div>
+        <div class="desc">未经调和的白色。基础款、运动鞋、袜子、T 恤</div>
+        <div class="nike"><span class="nike-label">Nike 参考 · </span>Closest Nike: 'White' / 'Summit White'。Nike 的 'Summit White' 是标准纯白色号，用于绝大多数鞋款；'White' 是服装线的纯白。两者基本一致，Summit White 是鞋类形态的标注</div>
+      </div>
+    </div>
+    <div class="color-card">
+      <div class="swatch bordered" style="background:#FFFFF0"></div>
+      <div class="card-body">
+        <div class="names"><span class="eng">Ivory</span><span class="chn">象牙白</span></div>
+        <div class="desc">暖调白，带极浅黄底。婚礼/礼服、真皮鞋面、高档运动鞋镶皮</div>
+        <div class="nike"><span class="nike-label">Nike 参考 · </span>Closest Nike: 'Ivory' / 'Cream'。Nike 的 'Ivory' 常用于 Premium 系列皮革鞋面，比 'Sail' 更白更干净；'Sail' 是带米底做旧白，'Ivory' 更像未染色的皮革本白色</div>
+      </div>
+    </div>
+    <div class="color-card">
+      <div class="swatch bordered" style="background:#F5F0EB"></div>
+      <div class="card-body">
+        <div class="names"><span class="eng">Sail / Off-White</span><span class="chn">霜白 / 帆白</span></div>
+        <div class="desc">冷调白，微带蓝底或极浅灰底。科技面料、衬衫、一些复古鞋的对比拼色</div>
+        <div class="nike"><span class="nike-label">Nike 参考 · </span>Closest Nike: 'Sail'（Nike 标志性色号）。Nike 的 'Sail' 是 Air Force 1 和 AJ 复刻的经典做旧白色号——它带微米浅底，模拟自然老化后的皮革色。不同于 Pure White 的干净白，Sail 是复刻文化的色彩语言</div>
+      </div>
+    </div>
+    <div class="color-card">
+      <div class="swatch bordered" style="background:#F5EBD8"></div>
+      <div class="card-body">
+        <div class="names"><span class="eng">Off-White / Natural</span><span class="chn">米白 / 自然白</span></div>
+        <div class="desc">白+浅米底。针织、羊绒、复古跑鞋中底</div>
+        <div class="nike"><span class="nike-label">Nike 参考 · </span>Closest Nike: 'Muslin' / 'Flax'。Nike 的 'Muslin' 是比 Sail 更暖、更接近米布的米白色号；'Flax' 则是 Oatmeal 和 Off-White 之间的中间色号</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="color-family">
+  <div class="family-header"><span class="glyph">🟡</span>黄色/橙色系<span class="count">5 个色名</span></div>
+  <div class="color-grid">
+    <div class="color-card">
+      <div class="swatch " style="background:#F2A900"></div>
+      <div class="card-body">
+        <div class="names"><span class="eng">Yellow / University Gold</span><span class="chn">黄 / 大学金</span></div>
+        <div class="desc">标准中明度黄色。运动标识、球队配色</div>
+        <div class="nike"><span class="nike-label">Nike 参考 · </span>Closest Nike: 'University Gold' / 'Yellow Strike'。Nike 的 'University Gold' 是 Jordan 和 Sportswear 的标志性金色号，介于纯黄和金黄之间；'Yellow Strike' 更亮更荧光</div>
+      </div>
+    </div>
+    <div class="color-card">
+      <div class="swatch " style="background:#C7A03E"></div>
+      <div class="card-body">
+        <div class="names"><span class="eng">Mustard / Ochre</span><span class="chn">芥末黄 / 土黄</span></div>
+        <div class="desc">暗黄带棕底，低明度。秋冬服饰、工装、复古运动</div>
+        <div class="nike"><span class="nike-label">Nike 参考 · </span>Closest Nike: 'Mustard Yellow' / 'Ochre'。Nike 的 'Ochre' 出现在 Air Max 系列复古款中，比 Mustard 更偏橙棕；'Mustard Yellow' 则更黄</div>
+      </div>
+    </div>
+    <div class="color-card">
+      <div class="swatch " style="background:#FFF44F"></div>
+      <div class="card-body">
+        <div class="names"><span class="eng">Lemon Yellow</span><span class="chn">柠檬黄</span></div>
+        <div class="desc">高明度、冷调鲜黄。春夏女装、运动训练鞋</div>
+        <div class="nike"><span class="nike-label">Nike 参考 · </span>Closest Nike: 'Lemon Venom' / 'Bright Citron'。Nike 的 'Lemon Venom' 是偏酸亮的黄绿色，用于跑步鞋警示色</div>
+      </div>
+    </div>
+    <div class="color-card">
+      <div class="swatch " style="background:#FF5E00"></div>
+      <div class="card-body">
+        <div class="names"><span class="eng">Orange / Safety Orange</span><span class="chn">橙 / 安全橙</span></div>
+        <div class="desc">高饱和橙色。户外警示、跑步鞋、运动标识</div>
+        <div class="nike"><span class="nike-label">Nike 参考 · </span>Closest Nike: 'Safety Orange' / 'Court Orange'。Nike 的 'Safety Orange' 是 Nike 跑步线（如 Vaporfly）的标志性亮橙色；'Court Orange' 更偏红橙，用于篮球鞋</div>
+      </div>
+    </div>
+    <div class="color-card">
+      <div class="swatch " style="background:#CC5500"></div>
+      <div class="card-body">
+        <div class="names"><span class="eng">Burnt Orange</span><span class="chn">焦橙色</span></div>
+        <div class="desc">深橙带棕底，暖感强。复古运动鞋、工装、大学配色（Longhorns）</div>
+        <div class="nike"><span class="nike-label">Nike 参考 · </span>Closest Nike: 'Burnt Orange' / 'Elemental Gold'。Nike 的 'Burnt Orange' 是橄榄球训练线的常用色号；'Elemental Gold' 介于金黄和焦橙之间</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="color-family">
+  <div class="family-header"><span class="glyph">🟣</span>紫色系<span class="count">4 个色名</span></div>
+  <div class="color-grid">
+    <div class="color-card">
+      <div class="swatch " style="background:#5B2C8E"></div>
+      <div class="card-body">
+        <div class="names"><span class="eng">Purple / Team Purple</span><span class="chn">紫 / 队紫</span></div>
+        <div class="desc">标准紫色。球队配色、运动标识</div>
+        <div class="nike"><span class="nike-label">Nike 参考 · </span>Closest Nike: 'Team Purple' / 'University Purple'。Nike 的 'Team Purple' 是标准运动深紫；'University Purple' 偏亮一些（略像 90 年代篮球服）</div>
+      </div>
+    </div>
+    <div class="color-card">
+      <div class="swatch " style="background:#6C2D82"></div>
+      <div class="card-body">
+        <div class="names"><span class="eng">Deep Purple / Grape</span><span class="chn">深紫 / 葡萄紫</span></div>
+        <div class="desc">深紫带蓝底，低明度。秋冬女装、复古球鞋</div>
+        <div class="nike"><span class="nike-label">Nike 参考 · </span>Closest Nike: 'Grape'（Nike 标志性色号）。Nike 的 'Grape' 是 AJ5 / AJ6 的经典复刻色号——不是葡萄紫那么简单，而是深紫+浅紫+白的三层配色方案</div>
+      </div>
+    </div>
+    <div class="color-card">
+      <div class="swatch " style="background:#D8BFD8"></div>
+      <div class="card-body">
+        <div class="names"><span class="eng">Lavender / Lilac</span><span class="chn">薰衣草紫 / 丁香紫</span></div>
+        <div class="desc">浅紫带大量灰白，高明度。女子训练、板鞋、春夏女装</div>
+        <div class="nike"><span class="nike-label">Nike 参考 · </span>Closest Nike: 'Lavender' / 'Lilac Bloom'。Nike 的 'Lavender' 比 'Lilac' 偏蓝、偏冷；'Lilac Bloom' 则偏粉、偏暖</div>
+      </div>
+    </div>
+    <div class="color-card">
+      <div class="swatch " style="background:#8A2BE2"></div>
+      <div class="card-body">
+        <div class="names"><span class="eng">Violet / Iris</span><span class="chn">紫罗兰 / 鸢尾紫</span></div>
+        <div class="desc">紫偏蓝，中等明度。衬衫、连衣裙、运动鞋点缀</div>
+        <div class="nike"><span class="nike-label">Nike 参考 · </span>Closest Nike: 'Violet Ore' / 'Iris'。Nike 的 'Violet Ore' 是紫中带灰的工业感紫色，用于 ACG 户外线；'Iris' 更蓝更亮</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="color-family">
+  <div class="family-header"><span class="glyph">🩷</span>粉色系<span class="count">6 个色名</span></div>
+  <div class="color-grid">
+    <div class="color-card">
+      <div class="swatch " style="background:#FF1493"></div>
+      <div class="card-body">
+        <div class="names"><span class="eng">Hot Pink / Pink Blast</span><span class="chn">热粉 / 玫红</span></div>
+        <div class="desc">高饱和粉，近紫。女子运动装备、跑步鞋</div>
+        <div class="nike"><span class="nike-label">Nike 参考 · </span>Closest Nike: 'Pink Blast' / 'Hyper Pink'。Nike 的 'Pink Blast' 是近年训练线的标志性荧光粉红；'Hyper Pink' 偏紫调高饱和</div>
+      </div>
+    </div>
+    <div class="color-card">
+      <div class="swatch " style="background:#8B5E6B"></div>
+      <div class="card-body">
+        <div class="names"><span class="eng">Rose / Dusty Rose</span><span class="chn">玫瑰粉 / 干枯玫瑰粉</span></div>
+        <div class="desc">粉带棕灰底，低饱和。极简女装、麂皮复古跑鞋</div>
+        <div class="nike"><span class="nike-label">Nike 参考 · </span>Closest Nike: 'Rose' / 'Dusty Cactus'。Nike 的 'Dusty Cactus' 是复古跑鞋系的灰粉代表（如 Air Max 1），介于玫瑰粉和鼠尾草绿灰之间</div>
+      </div>
+    </div>
+    <div class="color-card">
+      <div class="swatch " style="background:#E8C4B8"></div>
+      <div class="card-body">
+        <div class="names"><span class="eng">Blush / Nude Pink</span><span class="chn">裸粉 / 腮红</span></div>
+        <div class="desc">极浅粉带米底，明度极高。女装基础款、芭蕾风板鞋</div>
+        <div class="nike"><span class="nike-label">Nike 参考 · </span>Closest Nike: 'Blush' / 'Birch'。Nike 的 'Blush' 是 AF1 经典裸粉色号；'Birch' 更白更米，接近裸色而不是粉色</div>
+      </div>
+    </div>
+    <div class="color-card">
+      <div class="swatch " style="background:#F4C2C2"></div>
+      <div class="card-body">
+        <div class="names"><span class="eng">Baby Pink / Powder Pink</span><span class="chn">婴儿粉 / 柔粉</span></div>
+        <div class="desc">极浅粉带蓝底，冷调。女童装、初生婴儿系列</div>
+        <div class="nike"><span class="nike-label">Nike 参考 · </span>Closest Nike: 'Pink Foam' / 'Rift Pink'。Nike 的 'Pink Foam' 是偏冷的极浅粉，用于 Dunk Low 女款；'Rift Pink' 更暖一点</div>
+      </div>
+    </div>
+    <div class="color-card">
+      <div class="swatch " style="background:#DE3163"></div>
+      <div class="card-body">
+        <div class="names"><span class="eng">Cerise / Magenta</span><span class="chn">品红 / 洋红</span></div>
+        <div class="desc">紫粉之间，高饱和。设计师系列、潮流运动鞋</div>
+        <div class="nike"><span class="nike-label">Nike 参考 · </span>Closest Nike: 'Cerise' / 'Pink Prime'。Nike 的 'Cerise' 是比 Hot Pink 更偏蓝的紫粉红色号，用于 Lifestyle 系列；'Pink Prime' 略暖</div>
+      </div>
+    </div>
+    <div class="color-card">
+      <div class="swatch " style="background:#FF91A4"></div>
+      <div class="card-body">
+        <div class="names"><span class="eng">Coral Pink / Salmon</span><span class="chn">珊瑚粉 / 鲑鱼粉</span></div>
+        <div class="desc">橙调粉，暖感强。板鞋、夏季凉鞋、户外运动</div>
+        <div class="nike"><span class="nike-label">Nike 参考 · </span>Closest Nike: 'Coral Pink' / 'Salmon'。Nike 的 'Salmon' 是复古跑鞋的经典色号（如 Tailwind 79），偏橙粉；'Coral Pink' 更偏粉，略浅</div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</body>
+</html>

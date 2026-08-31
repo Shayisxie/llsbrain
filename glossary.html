@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Amazon VC 运营术语表</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:opsz@14..32&family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f5f6f8;
+  --surface: #ffffff;
+  --border: #e2e5ea;
+  --text: #1a1d23;
+  --text-secondary: #5e6570;
+  --text-tertiary: #9098a3;
+  --accent: #2563eb;
+  --accent-bg: #eef2ff;
+  --accent-hover: #1d4ed8;
+  --green: #059669;
+  --green-bg: #ecfdf5;
+  --orange: #d97706;
+  --orange-bg: #fffbeb;
+  --purple: #7c3aed;
+  --purple-bg: #f5f3ff;
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+  --radius: 8px;
+  --radius-sm: 6px;
+  --radius-lg: 12px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:'Inter','Noto Sans SC',-apple-system,system-ui,sans-serif;
+  background:var(--bg);color:var(--text);min-height:100vh;
+}
+.app{display:flex;min-height:100vh}
+/* Sidebar */
+.sidebar{
+  width:260px;flex-shrink:0;background:var(--surface);border-right:1px solid var(--border);
+  padding:24px 20px;display:flex;flex-direction:column;gap:20px;position:sticky;top:0;height:100vh;overflow-y:auto;
+}
+.sidebar h1{font-size:16px;font-weight:700;color:var(--text);display:flex;align-items:center;gap:8px;letter-spacing:-0.01em}
+.sidebar h1 svg{width:20px;height:20px;color:var(--accent)}
+.sidebar .sub{font-size:12px;color:var(--text-tertiary);margin-top:-12px}
+.filter-section h3{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:var(--text-secondary);margin-bottom:8px}
+.letter-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+.letter-btn{
+  display:flex;align-items:center;justify-content:center;height:30px;border-radius:var(--radius-sm);
+  border:1px solid var(--border);background:var(--surface);font-size:13px;font-weight:500;color:var(--text-secondary);
+  cursor:pointer;transition:all 0.15s ease;
+}
+.letter-btn:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-bg)}
+.letter-btn.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+.filter-select{
+  width:100%;padding:8px 10px;border:1px solid var(--border);border-radius:var(--radius-sm);
+  font-size:13px;background:var(--surface);color:var(--text);cursor:pointer;appearance:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%239098a3' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 8px center;padding-right:28px;
+}
+.stats-row{
+  display:flex;justify-content:space-between;font-size:12px;color:var(--text-tertiary);
+  border-top:1px solid var(--border);padding-top:16px;margin-top:auto;
+}
+/* Main */
+.main{flex:1;padding:24px 32px;max-width:1100px}
+.toolbar{display:flex;gap:12px;align-items:center;margin-bottom:24px;flex-wrap:wrap}
+.search-wrap{
+  flex:1;min-width:280px;position:relative;
+}
+.search-wrap svg{
+  position:absolute;left:12px;top:50%;transform:translateY(-50%);
+  width:18px;height:18px;color:var(--text-tertiary);pointer-events:none;
+}
+.search-wrap input{
+  width:100%;padding:10px 12px 10px 38px;border:1px solid var(--border);border-radius:var(--radius);
+  font-size:14px;background:var(--surface);color:var(--text);outline:none;transition:border-color 0.15s;
+}
+.search-wrap input:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-bg)}
+.search-wrap input::placeholder{color:var(--text-tertiary)}
+.btn-add{
+  display:flex;align-items:center;gap:6px;padding:10px 18px;border:none;border-radius:var(--radius);
+  background:var(--accent);color:#fff;font-size:14px;font-weight:500;cursor:pointer;transition:background 0.15s;white-space:nowrap;
+}
+.btn-add:hover{background:var(--accent-hover)}
+.btn-add svg{width:16px;height:16px}
+/* Results */
+.results{display:flex;flex-direction:column;gap:8px}
+.term-card{
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px;
+  cursor:pointer;transition:all 0.15s ease;
+}
+.term-card:hover{border-color:var(--accent);box-shadow:var(--shadow-sm)}
+.term-card-header{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.term-name{font-size:15px;font-weight:600;color:var(--text)}
+.term-alias{font-size:13px;color:var(--text-tertiary)}
+.term-type{
+  font-size:11px;padding:2px 8px;border-radius:99px;font-weight:500;
+}
+.type-amazon{background:var(--accent-bg);color:var(--accent)}
+.type-logistics{background:var(--green-bg);color:var(--green)}
+.type-crossborder{background:var(--orange-bg);color:var(--orange)}
+.type-knowledge{background:var(--purple-bg);color:var(--purple)}
+.type-rse{background:#fef2f2;color:#dc2626}
+.term-scenario-tag{
+  font-size:11px;padding:2px 8px;border-radius:99px;background:#f0f1f3;color:var(--text-secondary);font-weight:500;
+}
+.term-card-details{display:none;margin-top:10px;padding-top:10px;border-top:1px solid var(--border)}
+.term-card.open .term-card-details{display:block}
+.term-card-details p{font-size:13px;line-height:1.6;color:var(--text-secondary);margin-bottom:6px}
+.term-card-details .meta{font-size:12px;color:var(--text-tertiary);display:flex;gap:16px;flex-wrap:wrap;margin-top:8px}
+.term-card-details .meta span{display:flex;align-items:center;gap:4px}
+.term-card-details .meta svg{width:14px;height:14px}
+.term-card-details .link-wrap{margin-top:6px}
+.term-card-details .link-wrap a{font-size:13px;color:var(--accent);text-decoration:none}
+.term-card-details .link-wrap a:hover{text-decoration:underline}
+.empty-state{
+  text-align:center;padding:48px 24px;color:var(--text-tertiary);
+}
+.empty-state svg{width:48px;height:48px;margin-bottom:12px;opacity:0.4}
+.empty-state p{font-size:14px}
+/* Modal */
+.modal-overlay{
+  display:none;position:fixed;inset:0;background:rgba(0,0,0,0.4);
+  z-index:1000;align-items:center;justify-content:center;
+}
+.modal-overlay.show{display:flex}
+.modal{
+  background:var(--surface);border-radius:var(--radius-lg);width:90%;max-width:580px;
+  max-height:90vh;overflow-y:auto;padding:28px;box-shadow:var(--shadow-md);
+}
+.modal h2{font-size:18px;font-weight:600;margin-bottom:20px;display:flex;align-items:center;gap:8px}
+.modal h2 svg{width:20px;height:20px;color:var(--accent)}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.form-group.full{grid-column:1/-1}
+.form-group label{display:block;font-size:12px;font-weight:600;color:var(--text-secondary);margin-bottom:4px}
+.form-group input,.form-group select,.form-group textarea{
+  width:100%;padding:8px 10px;border:1px solid var(--border);border-radius:var(--radius-sm);
+  font-size:13px;font-family:inherit;color:var(--text);background:var(--surface);outline:none;transition:border-color 0.15s;
+}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--accent)}
+.form-group textarea{resize:vertical;min-height:60px}
+.form-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:20px}
+.btn-secondary{
+  padding:8px 18px;border:1px solid var(--border);border-radius:var(--radius-sm);
+  background:var(--surface);color:var(--text-secondary);font-size:13px;cursor:pointer;
+}
+.btn-secondary:hover{background:#f8f9fa}
+.btn-primary{
+  padding:8px 18px;border:none;border-radius:var(--radius-sm);
+  background:var(--accent);color:#fff;font-size:13px;font-weight:500;cursor:pointer;
+}
+.btn-primary:hover{background:var(--accent-hover)}
+/* Toast */
+.toast{
+  position:fixed;bottom:24px;left:50%;transform:translateX(-50%);
+  background:#1a1d23;color:#fff;padding:10px 20px;border-radius:var(--radius);
+  font-size:13px;z-index:2000;opacity:0;transition:opacity 0.3s ease;pointer-events:none;
+}
+.toast.show{opacity:1}
+/* Responsive */
+@media(max-width:768px){
+  .app{flex-direction:column}
+  .sidebar{width:100%;height:auto;position:static;padding:16px;border-right:none;border-bottom:1px solid var(--border);gap:12px}
+  .letter-grid{grid-template-columns:repeat(9,1fr)}
+  .main{padding:16px}
+  .toolbar{flex-direction:column}
+  .search-wrap{min-width:0;width:100%}
+  .form-grid{grid-template-columns:1fr}
+  .sidebar .stats-row{margin-top:12px}
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <h1>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
+      运营术语表
+    </h1>
+    <div class="sub">Amazon VC · 跨境电商</div>
+    <div class="filter-section">
+      <h3>首字母索引</h3>
+      <div class="letter-grid" id="letterGrid"></div>
+    </div>
+    <div class="filter-section">
+      <h3>分类筛选</h3>
+      <select class="filter-select" id="typeFilter">
+        <option value="">全部类型</option>
+      </select>
+    </div>
+    <div class="filter-section">
+      <h3>应用场景</h3>
+      <select class="filter-select" id="scenarioFilter">
+        <option value="">全部场景</option>
+      </select>
+    </div>
+    <div class="stats-row">
+      <span id="totalCount">0 个词条</span>
+      <span id="shownCount">显示 0</span>
+    </div>
+    <button class="btn-add" onclick="openModal()" style="width:100%;justify-content:center;margin-top:4px">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      新增词条
+    </button>
+  </aside>
+
+  <main class="main">
+    <div class="toolbar">
+      <div class="search-wrap">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" id="searchInput" placeholder="搜索词条名称、缩写或释义…" autocomplete="off">
+      </div>
+      <button class="btn-add" onclick="openModal()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        新增
+      </button>
+    </div>
+    <div class="results" id="results"></div>
+  </main>
+</div>
+
+<!-- Add Modal -->
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <h2><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>新增词条</h2>
+    <div class="form-grid">
+      <div class="form-group">
+        <label>词条名称 *</label>
+        <input type="text" id="fName" placeholder="例: ASIN">
+      </div>
+      <div class="form-group">
+        <label>首字母索引</label>
+        <input type="text" id="fIndex" maxlength="1" placeholder="自动或手动">
+      </div>
+      <div class="form-group full">
+        <label>Alias / 缩写全称</label>
+        <input type="text" id="fAlias" placeholder="例: Amazon Standard Identification Number">
+      </div>
+      <div class="form-group full">
+        <label>释义 *</label>
+        <textarea id="fDef" placeholder="详细解释该词条的含义…"></textarea>
+      </div>
+      <div class="form-group">
+        <label>分类</label>
+        <select id="fType"></select>
+      </div>
+      <div class="form-group">
+        <label>应用场景</label>
+        <select id="fScenario">
+          <option value="">选择场景</option>
+        </select>
+      </div>
+      <div class="form-group full">
+        <label>链接</label>
+        <input type="text" id="fLink" placeholder="https://…">
+      </div>
+      <div class="form-group">
+        <label>维护人</label>
+        <input type="text" id="fMaintainer" value="Shay 谢莲莲">
+      </div>
+      <div class="form-group">
+        <label>维护时间</label>
+        <input type="date" id="fTime">
+      </div>
+    </div>
+    <div class="form-actions">
+      <button class="btn-secondary" onclick="closeModal()">取消</button>
+      <button class="btn-primary" onclick="saveTerm()">保存</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// Load data
+let allTerms = [];
+const SCENARIO_KEY = 'glossary_scenarios';
+
+function getTypeClass(type) {
+  if (type.includes('Amazon')) return 'type-amazon';
+  if (type.includes('物流')) return 'type-logistics';
+  if (type.includes('跨境')) return 'type-crossborder';
+  if (type.includes('通识')) return 'type-knowledge';
+  if (type.includes('RSE') || type.includes('SEVC')) return 'type-rse';
+  return 'type-amazon';
+}
+
+function getTypeLabel(type) {
+  const map = {
+    '行业词汇--Amazon 行业词': 'Amazon 行业词',
+    '行业词汇-物流术语': '物流术语',
+    '行业词汇-跨境电商行业词': '跨境电商',
+    '通识--通识名词': '通识名词',
+    'RSE--SEVC业务词汇': 'SEVC业务词'
+  };
+  return map[type] || type.split('--').pop() || type;
+}
+
+function loadTerms() {
+  const stored = localStorage.getItem('glossary_terms');
+  if (stored) {
+    allTerms = JSON.parse(stored);
+    return;
+  }
+  fetch('./glossary_data.json')
+    .then(r => r.json())
+    .then(data => {
+      allTerms = data;
+      localStorage.setItem('glossary_terms', JSON.stringify(allTerms));
+      init();
+    });
+}
+
+function init() {
+  populateFilters();
+  render();
+}
+
+function populateFilters() {
+  const types = [...new Set(allTerms.map(t => t.type).filter(Boolean))];
+  const scenarios = [...new Set(allTerms.map(t => t.scenario).filter(Boolean))];
+  const letters = [...new Set(allTerms.map(t => t.index).filter(Boolean))].sort();
+
+  const typeSel = document.getElementById('typeFilter');
+  types.forEach(t => {
+    const o = document.createElement('option');
+    o.value = t; o.textContent = getTypeLabel(t);
+    typeSel.appendChild(o);
+  });
+
+  const scenarioSel = document.getElementById('scenarioFilter');
+  scenarios.sort().forEach(s => {
+    const o = document.createElement('option');
+    o.value = s; o.textContent = s;
+    scenarioSel.appendChild(o);
+  });
+
+  // Modal selects
+  const ft = document.getElementById('fType');
+  types.forEach(t => {
+    const o = document.createElement('option');
+    o.value = t; o.textContent = getTypeLabel(t);
+    ft.appendChild(o);
+  });
+  const fs = document.getElementById('fScenario');
+  scenarios.sort().forEach(s => {
+    const o = document.createElement('option');
+    o.value = s; o.textContent = s;
+    fs.appendChild(o);
+  });
+
+  // Letter grid
+  const grid = document.getElementById('letterGrid');
+  const allBtn = document.createElement('button');
+  allBtn.className = 'letter-btn active';
+  allBtn.textContent = '全部';
+  allBtn.dataset.letter = '';
+  allBtn.onclick = () => setLetter('');
+  grid.appendChild(allBtn);
+  letters.forEach(l => {
+    const btn = document.createElement('button');
+    btn.className = 'letter-btn';
+    btn.textContent = l;
+    btn.dataset.letter = l;
+    btn.onclick = () => setLetter(l);
+    grid.appendChild(btn);
+  });
+
+  document.getElementById('totalCount').textContent = `${allTerms.length} 个词条`;
+}
+
+let currentLetter = '';
+
+function setLetter(l) {
+  currentLetter = l;
+  document.querySelectorAll('.letter-btn').forEach(b => b.classList.toggle('active', b.dataset.letter === l));
+  render();
+}
+
+function render() {
+  const q = document.getElementById('searchInput').value.trim().toLowerCase();
+  const type = document.getElementById('typeFilter').value;
+  const scenario = document.getElementById('scenarioFilter').value;
+
+  let filtered = allTerms.filter(t => {
+    if (currentLetter && t.index !== currentLetter) return false;
+    if (type && t.type !== type) return false;
+    if (scenario && t.scenario !== scenario) return false;
+    if (q) {
+      const match = (t.name + ' ' + t.alias + ' ' + t.definition + ' ' + t.scenario).toLowerCase().includes(q);
+      if (!match) return false;
+    }
+    return true;
+  });
+
+  document.getElementById('shownCount').textContent = `显示 ${filtered.length}`;
+
+  const container = document.getElementById('results');
+  if (filtered.length === 0) {
+    container.innerHTML = `<div class="empty-state"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><p>未找到匹配的词条</p></div>`;
+    return;
+  }
+
+  container.innerHTML = filtered.map(t => {
+    const typeClass = getTypeClass(t.type);
+    const typeLabel = getTypeLabel(t.type);
+    return `<div class="term-card" onclick="toggleCard(this)">
+      <div class="term-card-header">
+        <span class="term-name">${esc(t.name)}</span>
+        ${t.alias ? `<span class="term-alias">${esc(t.alias)}</span>` : ''}
+        <span class="term-type ${typeClass}">${esc(typeLabel)}</span>
+        ${t.scenario ? `<span class="term-scenario-tag">${esc(t.scenario)}</span>` : ''}
+      </div>
+      <div class="term-card-details">
+        ${t.definition ? `<p>${esc(t.definition)}</p>` : ''}
+        ${t.link ? `<div class="link-wrap"><a href="${esc(t.link)}" target="_blank">${esc(t.link)}</a></div>` : ''}
+        <div class="meta">
+          ${t.maintainer ? `<span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>${esc(t.maintainer)}</span>` : ''}
+          ${t.time ? `<span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>${esc(t.time)}</span>` : ''}
+          ${t.index ? `<span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>${esc(t.index)}</span>` : ''}
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function toggleCard(el) {
+  el.classList.toggle('open');
+}
+
+function esc(s) {
+  const div = document.createElement('div');
+  div.textContent = s;
+  return div.innerHTML;
+}
+
+// Modal
+function openModal() {
+  document.getElementById('modal').classList.add('show');
+  document.getElementById('fTime').value = new Date().toISOString().split('T')[0];
+}
+function closeModal() {
+  document.getElementById('modal').classList.remove('show');
+  document.getElementById('fName').value = '';
+  document.getElementById('fIndex').value = '';
+  document.getElementById('fAlias').value = '';
+  document.getElementById('fDef').value = '';
+  document.getElementById('fLink').value = '';
+  document.getElementById('fTime').value = '';
+}
+
+function saveTerm() {
+  const name = document.getElementById('fName').value.trim();
+  const def = document.getElementById('fDef').value.trim();
+  if (!name || !def) {
+    showToast('请填写词条名称和释义');
+    return;
+  }
+  const idx = document.getElementById('fIndex').value.trim().toUpperCase() || name[0].toUpperCase();
+  const term = {
+    index: idx,
+    name: name,
+    type: document.getElementById('fType').value || '',
+    alias: document.getElementById('fAlias').value.trim(),
+    definition: def,
+    link: document.getElementById('fLink').value.trim(),
+    scenario: document.getElementById('fScenario').value || '',
+    maintainer: document.getElementById('fMaintainer').value.trim(),
+    time: document.getElementById('fTime').value || '',
+    parent: ''
+  };
+  allTerms.push(term);
+  localStorage.setItem('glossary_terms', JSON.stringify(allTerms));
+  closeModal();
+  populateFilters();
+  render();
+  showToast(`已添加「${name}」`);
+}
+
+function showToast(msg) {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.classList.add('show');
+  setTimeout(() => el.classList.remove('show'), 2000);
+}
+
+// Search debounce
+document.getElementById('searchInput').addEventListener('input', () => render());
+document.getElementById('typeFilter').addEventListener('change', () => render());
+document.getElementById('scenarioFilter').addEventListener('change', () => render());
+// Close modal on overlay click
+document.getElementById('modal').addEventListener('click', e => { if(e.target===e.currentTarget) closeModal(); });
+
+// Load on load
+window.addEventListener('DOMContentLoaded', () => {
+  loadTerms();
+  // Also re-init if data already loaded
+  setTimeout(() => { if(allTerms.length) init(); }, 100);
+});
+</script>
+</body>
+</html>
