@@ -1,0 +1,1736 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>RACR / ACR 工作簿说明与使用指引</title>
+  <style>
+:root {
+  --bg: #f2f5f8;
+  --surface: #ffffff;
+  --surface-2: #f7f9fb;
+  --ink: #18222f;
+  --muted: #5d6b7a;
+  --line: #d9e1e9;
+  --brand: #0e5a6d;
+  --brand-strong: #0b4657;
+  --accent: #c2410c;
+  --good: #0f766e;
+  --warn-bg: #fff7ed;
+  --warn-line: #fed7aa;
+  --warn-ink: #9a3412;
+  --info-bg: #eff6ff;
+  --info-line: #bfdbfe;
+  --info-ink: #1e40af;
+  --shadow: 0 1px 2px rgba(16, 24, 40, 0.06), 0 8px 24px rgba(16, 24, 40, 0.05);
+  --radius: 8px;
+  --mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font: 15px/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  letter-spacing: 0;
+}
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 22px;
+  background: rgba(255, 255, 255, 0.94);
+  border-bottom: 1px solid var(--line);
+  backdrop-filter: blur(8px);
+}
+
+.topbar .mark {
+  width: 10px;
+  height: 26px;
+  border-radius: 3px;
+  background: var(--brand);
+}
+
+.topbar .title {
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.topbar .crumb {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.topbar nav {
+  margin-left: auto;
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.topbar nav a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  padding: 5px 10px;
+  border-radius: 6px;
+  color: var(--ink);
+  text-decoration: none;
+  font-size: 13px;
+}
+
+.topbar nav a:hover {
+  background: var(--surface-2);
+  color: var(--brand-strong);
+}
+
+.page {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 26px 22px 70px;
+}
+
+.page-hero {
+  border: 1px solid var(--line);
+  background: var(--surface);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 26px 28px;
+  margin-bottom: 18px;
+}
+
+.eyebrow {
+  color: var(--brand);
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 8px;
+}
+
+h1 {
+  margin: 0 0 10px;
+  font-size: 28px;
+  line-height: 1.3;
+}
+
+h2 {
+  margin: 0;
+  font-size: 20px;
+  line-height: 1.35;
+}
+
+h3 {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.45;
+}
+
+.lede {
+  color: var(--muted);
+  max-width: 920px;
+  margin: 0;
+}
+
+.hero-meta {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.meta-chip {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface-2);
+  padding: 10px 13px;
+}
+
+.meta-chip .k {
+  display: block;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.meta-chip .v {
+  display: block;
+  font-size: 16px;
+  font-weight: 700;
+  margin-top: 2px;
+  overflow-wrap: anywhere;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 36px;
+  padding: 7px 13px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--ink);
+  text-decoration: none;
+  font-weight: 650;
+  font-size: 14px;
+}
+
+.btn-primary {
+  background: var(--brand);
+  border-color: var(--brand);
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background: var(--brand-strong);
+}
+
+.btn:hover {
+  border-color: #aab8c6;
+}
+
+.notice {
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--accent);
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  margin: 18px 0;
+}
+
+.notice.warn {
+  border-left-color: var(--accent);
+  background: var(--warn-bg);
+  border-color: var(--warn-line);
+}
+
+.notice.info {
+  border-left-color: var(--info-ink);
+  background: var(--info-bg);
+  border-color: var(--info-line);
+}
+
+.notice .title {
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.notice p {
+  margin: 6px 0 0;
+}
+
+.notice ul {
+  margin: 7px 0 0;
+  padding-left: 20px;
+}
+
+.section {
+  margin: 24px 0;
+  scroll-margin-top: 74px;
+}
+
+.section-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 12px;
+}
+
+.section-head .index {
+  color: var(--accent);
+  font-family: var(--mono);
+  font-size: 13px;
+}
+
+.section-head .desc {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.panel-pad {
+  padding: 20px 22px;
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.grid-2 > *,
+.grid-3 > *,
+.term-list > * {
+  min-width: 0;
+}
+
+.stat-card {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  padding: 14px 16px;
+  box-shadow: var(--shadow);
+}
+
+.stat-card .num {
+  font-size: 25px;
+  font-weight: 800;
+  line-height: 1.15;
+}
+
+.stat-card .label {
+  color: var(--muted);
+  font-size: 13px;
+  margin-top: 4px;
+}
+
+.region-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+  gap: 14px;
+}
+
+.region-card {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+.region-card > header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 14px;
+  border-bottom: 1px solid var(--line);
+  background: var(--surface-2);
+}
+
+.region-card > header .count {
+  margin-left: auto;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.region-card .body {
+  padding: 12px 14px 14px;
+}
+
+.code-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(112px, 1fr));
+  gap: 8px;
+}
+
+.code-box {
+  min-height: 78px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 8px 9px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  background: var(--surface);
+}
+
+.code-box .code {
+  font-family: var(--mono);
+  font-weight: 750;
+  font-size: 15px;
+}
+
+.code-box .place {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.35;
+}
+
+.code-box .flag {
+  font-size: 11px;
+  color: var(--accent);
+  font-weight: 650;
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--surface-2);
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 650;
+  white-space: nowrap;
+}
+
+.pill.ok { background: #ecfdf5; border-color: #a7f3d0; color: #047857; }
+.pill.diff { background: var(--warn-bg); border-color: var(--warn-line); color: var(--warn-ink); }
+.pill.region { background: var(--surface); }
+
+.swatch {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+  flex: 0 0 auto;
+}
+
+.table-wrap {
+  overflow-x: auto;
+  max-width: 100%;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  min-width: 760px;
+}
+
+th, td {
+  text-align: left;
+  vertical-align: top;
+  padding: 9px 11px;
+  border-bottom: 1px solid var(--line);
+}
+
+th {
+  background: var(--surface-2);
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+tr:last-child td { border-bottom: 0; }
+
+td.num, th.num { text-align: right; white-space: nowrap; }
+
+code, .mono {
+  font-family: var(--mono);
+  font-size: 0.92em;
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  padding: 1px 5px;
+}
+
+.term-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.term {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 12px 14px;
+  background: var(--surface);
+}
+
+.term dt {
+  font-weight: 750;
+}
+
+.term dd {
+  margin: 5px 0 0;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.flow {
+  counter-reset: step;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 10px;
+}
+
+.flow .step {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  padding: 13px 14px;
+  position: relative;
+}
+
+.flow .step::before {
+  counter-increment: step;
+  content: counter(step);
+  display: block;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--brand);
+  color: #fff;
+  font-weight: 750;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 8px;
+}
+
+.flow .step h3 { font-size: 14px; }
+.flow .step p { margin: 6px 0 0; color: var(--muted); font-size: 13px; }
+
+.sheet-map td:first-child {
+  font-family: var(--mono);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.metric-row {
+  display: grid;
+  grid-template-columns: 180px 1fr 1fr 1fr;
+  gap: 10px 16px;
+  align-items: baseline;
+  padding: 11px 0;
+  border-bottom: 1px dashed var(--line);
+}
+
+.metric-row:last-child { border-bottom: 0; }
+.metric-row .name { font-weight: 700; }
+.metric-row .def { color: var(--muted); font-size: 13px; grid-column: 2 / -1; }
+.metric-row .value { font-weight: 700; text-align: right; }
+
+.formula {
+  font-family: var(--mono);
+  font-size: 13px;
+  background: #0b1e2a;
+  color: #e6f7ff;
+  border-radius: 6px;
+  padding: 14px 16px;
+  overflow-x: auto;
+  white-space: pre;
+}
+
+.example-table { width: 100%; }
+.example-table td, .example-table th { padding: 8px 10px; }
+.example-table .subtotal { background: var(--surface-2); font-weight: 700; }
+
+.bar-track {
+  height: 10px;
+  border-radius: 5px;
+  background: #e8eef4;
+  overflow: hidden;
+  min-width: 120px;
+}
+
+.bar-fill {
+  height: 100%;
+  border-radius: 5px;
+  background: var(--brand);
+}
+
+.chart {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+  margin-top: 10px;
+}
+
+.legend .item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.controls input[type="search"] {
+  flex: 1 1 220px;
+  min-height: 36px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 6px 10px;
+  font: inherit;
+  background: var(--surface);
+}
+
+.seg {
+  display: inline-flex;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  overflow: hidden;
+  background: var(--surface);
+}
+
+.seg button {
+  border: 0;
+  background: transparent;
+  padding: 7px 11px;
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+  color: var(--muted);
+}
+
+.seg button + button { border-left: 1px solid var(--line); }
+.seg button.active { background: var(--brand); color: #fff; font-weight: 650; }
+
+.map-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  margin-bottom: 8px;
+}
+
+.map-row .head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  background: var(--surface-2);
+  border-bottom: 1px solid var(--line);
+}
+
+.map-row .body {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 10px;
+  padding: 10px 12px;
+}
+
+.map-row .field .k {
+  display: block;
+  color: var(--muted);
+  font-size: 11px;
+  text-transform: uppercase;
+}
+
+.map-row .field .v {
+  display: block;
+  margin-top: 2px;
+  font-size: 13px;
+  overflow-wrap: anywhere;
+}
+
+.acr-ok { color: var(--good); font-weight: 750; }
+.acr-warn { color: var(--accent); font-weight: 750; }
+.na { color: var(--muted); }
+
+.details summary {
+  cursor: pointer;
+  font-weight: 700;
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--line);
+  list-style: none;
+  position: relative;
+}
+
+.details summary::-webkit-details-marker { display: none; }
+.details summary::after {
+  content: "+";
+  position: absolute;
+  right: 14px;
+  color: var(--brand);
+  font-family: var(--mono);
+}
+
+.details[open] summary::after { content: "−"; }
+
+.details .body { padding: 12px 14px 16px; }
+
+.footnote {
+  color: var(--muted);
+  font-size: 12px;
+  margin-top: 18px;
+}
+
+.stack > * + * { margin-top: 12px; }
+
+.mini-map {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--surface);
+}
+
+.mini-map .cell {
+  padding: 10px;
+  border-right: 1px solid var(--line);
+  min-width: 0;
+}
+
+.mini-map .cell:last-child { border-right: 0; }
+.mini-map .cell .count { display: block; font-size: 20px; font-weight: 800; }
+.mini-map .cell .label { display: block; font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+@media (max-width: 980px) {
+  .grid-2, .grid-3, .term-list { grid-template-columns: minmax(0, 1fr); }
+  .mini-map { grid-template-columns: repeat(3, 1fr); }
+  .mini-map .cell:nth-child(3) { border-right: 0; }
+  .mini-map .cell:nth-child(n+4) { border-top: 1px solid var(--line); }
+  .metric-row { grid-template-columns: 1fr; gap: 3px; }
+  .metric-row .value { text-align: left; }
+  .metric-row .def { grid-column: auto; }
+  .page-hero { padding: 20px; }
+}
+
+@media (max-width: 720px) {
+  .page { padding: 16px 12px 60px; }
+  .topbar { flex-wrap: wrap; padding: 8px 12px; }
+  .topbar nav { order: 3; width: 100%; }
+  h1 { font-size: 23px; }
+  .region-cards { grid-template-columns: 1fr; }
+  .code-grid { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); }
+  .mini-map { grid-template-columns: repeat(2, 1fr); }
+  .mini-map .cell { border-bottom: 1px solid var(--line); }
+  .mini-map .cell:nth-child(2n) { border-right: 0; }
+  .mini-map .cell:nth-child(n+3) { border-top: 0; }
+  .section-head { flex-direction: column; gap: 2px; }
+  .example-table { font-size: 12px; }
+}
+
+</style>
+</head>
+<body>
+  <header class="topbar">
+    <span class="mark"></span>
+    <span class="title">RACR 区域 IXD 指引</span>
+    <span class="crumb">ASIN Confirmation Rate Workbook</span>
+    <nav>
+      <a href="#summary">总览</a>
+      <a href="#terms">术语</a>
+      <a href="#path">使用路径</a>
+      <a href="#regions">区域对照</a>
+      <a href="#metrics">指标与数据</a>
+      <a href="#sheets">Sheet 说明</a>
+      <a href="#defects">缺陷与建议</a>
+    </nav>
+  </header>
+
+  <main class="page">
+    <section class="page-hero">
+      <div class="eyebrow">Amazon Vendor Central / 物流供应链参考</div>
+      <h1>ASIN Confirmation Rate (ACR) 工作簿说明与使用指引</h1>
+      <p class="lede">
+        这份本地页面把亚马逊发来的 <b>RACR_Workbook-regional IXD .xlsx</b> 整理成可检索的说明文件：
+        先解释工作簿里每个指标、术语、Sheet 和缺陷判据的含义，再给出区域化 IXD 网络、区域分布与
+        rIXD Warehouse Code 的独立对照页，最后附上本工作簿快照数据的解读。
+      </p>
+      <div class="hero-meta">
+        <div class="meta-chip"><span class="k">工作簿名称</span><span class="v">RACR_Workbook-regional IXD .xlsx</span></div>
+        <div class="meta-chip"><span class="k">报告周期</span><span class="v">2025-04-06 至 2025-04-12</span></div>
+        <div class="meta-chip"><span class="k">数据来源表</span><span class="v">Chart Data Week</span></div>
+        <div class="meta-chip"><span class="k">Vendor Code</span><span class="v" id="vendorCode">C96QA</span></div>
+      </div>
+      <div class="actions">
+        <a class="btn btn-primary" href="#regions">打开区域与 rIXD 对照</a>
+        <a class="btn" href="#regions">在本页查看区域分布</a>
+        <a class="btn" href="#metrics">查看当前周指标</a>
+      </div>
+    </section>
+
+    <div class="notice info">
+      <div class="title">阅读前需要知道的两件事</div>
+      <ul>
+        <li>原文件里的 <span class="mono">Regional IXD performance</span> 和 <span class="mono">Overall Trend</span>
+          等指标是公式/透视类内容，静态 Excel 下载文件不一定带缓存值。本页中的当周与 6 周指标均按
+          <span class="mono">Chart Data Week</span> 与工作簿中的 SUMIFS 公式复算。</li>
+        <li>你提供的文件名是 RACR，工作簿内部标题是 ASIN Confirmation Rate Workbook。它衡量的是供应商对采购订单的
+          <b>ASIN 确认率</b>，不是 Amazon 内部的 RACA 文件；若你手里另有 RACA 文件，本页不适用于它。</li>
+      </ul>
+    </div>
+
+    <section class="section" id="summary">
+      <div class="section-head">
+        <div>
+          <span class="index">01</span>
+          <h2>这份工作簿在讲什么</h2>
+        </div>
+        <span class="desc">文件总体结构、主要指标和快照规模</span>
+      </div>
+      <div class="grid-2">
+        <div class="panel panel-pad">
+          <h3>业务背景</h3>
+          <p>
+            2024 年起，Amazon 把美国可分类商品的交叉转运（IXD）网络分成五个区域：
+            WestCoast、Central、MidAtlantic、NorthEast、SouthEast。每个区域的需求尽量由该区域内的
+            FC 与 IXD 满足，供应商把货发到靠近 regional cross dock（rIXD）的位置可以加快货物到达和上架。
+          </p>
+          <p>
+            对供应商的要求是：<b>每周尽量按采购订单全额确认</b>；不能全额确认时，要按各区域 PO 规模等比例确认；
+            某一周确实无法补的，下一周优先补，避免该区域库存不足。ACR 就是用来衡量这些采购订单确认表现的指标。
+          </p>
+        </div>
+        <div class="panel panel-pad">
+          <h3>工作簿核心概念</h3>
+          <p>
+            JIT = Just-in-Time，即每周补货订单；Non-JIT 包括 Forward、Discounted Bulk、Reactive 等非 JIT 采购。
+            工作簿分别给出 JIT 与 Non-JIT 的 ACR，并区分当前周、过去 6 周（T6Wks）、过去 12 周（T12Wks）。
+          </p>
+          <p>
+            ACR 与 VCR 的差别在于：ACR 对一个 ASIN 一周内的重复下单做去重处理，因此当供应商收到多次 PO 且前期
+            没有全额确认时，ACR 比 VCR 更能反映真实供应缺口。
+          </p>
+          <div class="formula">ACR = total confirmed units / (total confirmed units + last submitted units - last confirmed units)</div>
+        </div>
+      </div>
+      <div style="height:14px"></div>
+      <div id="statCards"></div>
+      <div style="height:14px"></div>
+      <div class="grid-2">
+        <div class="panel panel-pad">
+          <h3>推荐阅读顺序</h3>
+          <div class="flow">
+            <div class="step"><h3>先看 Overall Trend</h3><p>看全国与各区域 ACR 是否在下降。</p></div>
+            <div class="step"><h3>再看 Regional IXD performance</h3><p>定位是哪个 rIXD 拖低了区域表现。</p></div>
+            <div class="step"><h3>进入 Detailed 表</h3><p>找具体 ASIN、External ID 和区域/rIXD。</p></div>
+            <div class="step"><h3>处理 Defect 1-3</h3><p>按每个标签页的 Recommended action 改善确认。</p></div>
+          </div>
+        </div>
+        <div class="panel panel-pad">
+          <h3>9 个 Sheet 的分工</h3>
+          <p>Overview 是说明页；Overall Trend、Regional IXD performance 是汇总；两个 Detailed 表是明细；</p>
+          <p>Defect 1/2/3 是自动标出的问题 ASIN；Chart Data Week 是画图和公式引用的底层周数据。</p>
+          <p>对日常处理来说，最需要关注的是 Regional IXD performance、Detailed rIXD Data 和三个 Defect 页。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="terms">
+      <div class="section-head">
+        <div>
+          <span class="index">02</span>
+          <h2>指标、术语与字段含义</h2>
+        </div>
+        <span class="desc">源自 Overview 的 Key terms and definitions</span>
+      </div>
+      <dl class="term-list">
+        <div class="term"><dt>ASIN</dt><dd>Amazon Standard Identification Number，亚马逊商品编号，是明细表第一层产品标识。</dd></div>
+        <div class="term"><dt>External ID Type</dt><dd>外部条码类型，例如 GTIN、UPC、EAN；工作簿中也允许把 ASIN 当外部 ID。</dd></div>
+        <div class="term"><dt>External ID</dt><dd>Amazon 下单时使用的唯一外部识别号，通常来自条码，如 UPC/EAN。</dd></div>
+        <div class="term"><dt>Vendor Code</dt><dd>收到采购订单的具体供应商代码。本工作簿里为 C96QA。</dd></div>
+        <div class="term"><dt>Region / Inbound Region</dt><dd>区域化 IXD 网络中的五个区域，或订单的入站区域；数据中还有 National IXD、National FC (Sort/Non-Sort)。</dd></div>
+        <div class="term"><dt>rIXD</dt><dd>Regional IXD，服务指定区域的区域交叉转运仓库；本工作簿中区域与 rIXD 映射可能调整。</dd></div>
+        <div class="term"><dt>IXD / nIXD / FC</dt><dd>IXD 为交叉转运中心；rIXD 是区域化后的 IXD；nIXD 是国家型 IXD；FC 为履约中心。</dd></div>
+        <div class="term"><dt>JIT / Non-JIT</dt><dd>JIT 是按客户需求、库存与在途 PO 发出的每周补货订单；Non-JIT 包括 Forward、Discounted Bulk、Reactive 和临时采购。</dd></div>
+        <div class="term"><dt>ACR Current Week</dt><dd>本周期内该 ASIN 的 ACR，按去重口径计算。</dd></div>
+        <div class="term"><dt>ACR T6Wks / T12Wks</dt><dd>过去 6 周 / 12 周的 ACR，用于观察趋势而避免只看单周波动。</dd></div>
+        <div class="term"><dt>Unconfirmed Units</dt><dd>表中英文注释为 Last Submitted Units - Last Confirmed Units，即“最近一次下单仍未确认”的部分。</dd></div>
+        <div class="term"><dt>Submitted Units 列</dt><dd>ACR 的分母：Total Confirmed Units + Last Submitted Units - Last Confirmed Units。</dd></div>
+        <div class="term"><dt>Overall / rIXD 行</dt><dd>Regional IXD performance 中 Overall 是区域合计，其下每个 rIXD 是该仓库自身的表现。</dd></div>
+      </dl>
+    </section>
+
+    <section class="section" id="acr">
+      <div class="section-head">
+        <div>
+          <span class="index">03</span>
+          <h2>ACR 与 VCR 的差别</h2>
+        </div>
+        <span class="desc">FAQ 3 的原始示例</span>
+      </div>
+      <div class="grid-2">
+        <div class="panel panel-pad">
+          <h3>示例：一周重复下单</h3>
+          <div class="table-wrap">
+            <table class="example-table">
+              <thead><tr><th>日期</th><th class="num">Submit qty</th><th class="num">Confirm qty</th></tr></thead>
+              <tbody>
+                <tr><td>Sunday</td><td class="num">0</td><td class="num">0</td></tr>
+                <tr><td>Monday</td><td class="num">100</td><td class="num">25</td></tr>
+                <tr><td>Tuesday</td><td class="num">75</td><td class="num">0</td></tr>
+                <tr><td>Wednesday</td><td class="num">75</td><td class="num">0</td></tr>
+                <tr><td>Thursday</td><td class="num">75</td><td class="num">0</td></tr>
+                <tr><td>Friday</td><td class="num">75</td><td class="num">25</td></tr>
+                <tr><td>Saturday</td><td class="num">0</td><td class="num">0</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="footnote">该周总提交 400，总确认 50；但 Amazon 对该 ASIN 的目标需求只有 100，ACR 应反映 50/100。</p>
+        </div>
+        <div class="panel panel-pad">
+          <h3>两种口径</h3>
+          <div class="formula">VCR = total confirmed units / total submitted units
+  = 50 / (100+75+75+75+75) = 12.5%</div>
+          <div style="height:10px"></div>
+          <div class="formula">ACR = 50 / (50 + last submitted 75 - last confirmed 25)
+  = 50 / 100 = 50%</div>
+          <div style="height:10px"></div>
+          <p class="lede">供应商每天收到补货 PO 时，如果当天不能全额确认，后面几天 Amazon 会继续下单补足；按全部提交量算 VCR 会被重复订单稀释，ACR 能更准地衡量供应缺口。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="regions">
+      <div class="section-head">
+        <div>
+          <span class="index">04</span>
+          <h2>亚马逊区域分布与 rIXD Warehouse Code</h2>
+        </div>
+      </div>
+      <div id="regionDetail"></div>
+    </section>
+
+    <section class="section" id="metrics">
+      <div class="section-head">
+        <div>
+          <span class="index">05</span>
+          <h2>指标趋势与本期快照</h2>
+        </div>
+        <span class="desc">6 周图表、当前周区域表现与底层数据规模</span>
+      </div>
+      <div class="panel panel-pad">
+        <h3>JIT ACR 趋势（过去 6 周）</h3>
+        <div id="trendChart"></div>
+        <div id="trendTable" style="margin-top:18px"></div>
+      </div>
+      <div style="height:14px"></div>
+      <div class="panel panel-pad">
+        <h3>报告周（2025-04-12 对应订单周）JIT 表现</h3>
+        <div id="performanceTable"></div>
+      </div>
+      <div style="height:14px"></div>
+      <div class="grid-2">
+        <div class="panel panel-pad">
+          <h3>Detailed rIXD Data 的区域行分布</h3>
+          <div id="snapshotRegions"></div>
+          <p class="footnote">同一 ASIN 会同时出现在 National 与多个区域/rIXD 行，因此区域行数和 ASIN 数不是同一概念。</p>
+        </div>
+        <div class="panel panel-pad">
+          <h3>如何看这些数字</h3>
+          <p>先把 ACR 当前周与 T6/T12 比较：只有当前周低，说明是近期缺货或确认不及时；长期低则要看需求预测、产能或商品资料问题。</p>
+          <p>再看 Submitted Units：它代表经过 ACR 去重后的“应确认数量”。Confirmed Units 少且 Unconfirmed Units 高，说明缺口仍存在。</p>
+          <p>Non-JIT ACR 主要反映 Forward、Reactive 等批量订单是否被接受，不作为每周补货的主要标准。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="sheets">
+      <div class="section-head">
+        <div>
+          <span class="index">06</span>
+          <h2>9 个 Sheet 逐一说明</h2>
+        </div>
+        <span class="desc">目的、字段和正确读法</span>
+      </div>
+      <div class="panel table-wrap">
+        <table class="sheet-map">
+          <thead><tr><th>Sheet</th><th>作用</th><th>建议用法</th></tr></thead>
+          <tbody>
+            <tr><td>Overview</td><td>使用说明、Sheet 描述、术语表、区域对照表、FAQ 与 ACR/VCR 示例。</td><td>先读“How to use this workbook”。</td></tr>
+            <tr><td>Overall Trend</td><td>过去 6 周全国/区域 ACR、Confirmed Units、Submitted Units 的汇总趋势。</td><td>先判断整体和哪个区域在退化。</td></tr>
+            <tr><td>Regional IXD performance</td><td>当前周按五个区域及区域下每个 rIXD 汇总 JIT ACR。</td><td>定位拖后腿的 rIXD。</td></tr>
+            <tr><td>Detailed rIXD Data</td><td>ASIN 级订单、确认率、未确认数量，按 Region/rIXD 拆分。</td><td>找具体 ASIN 和发货目标仓库。</td></tr>
+            <tr><td>Detailed Overall Data</td><td>ASIN 在所有 IXD 与 FC 上的全国整体表现。</td><td>判断 ASIN 是区域问题还是全国问题。</td></tr>
+            <tr><td>Defect 1</td><td>过去 4 周确认供应与该入站区域 PO 规模不成比例的 ASIN。</td><td>确认所有区域时按 PO 比例分配。</td></tr>
+            <tr><td>Defect 2</td><td>过去 6 周确认数量低于 mean (p50) demand forecast 的 ASIN。</td><td>提高库存覆盖，减少 ROOS。</td></tr>
+            <tr><td>Defect 3</td><td>SKU 标识类缺陷，可能用了错误的 External ID。</td><td>通过 Case 提交 Item ID update。</td></tr>
+            <tr><td>Chart Data Week</td><td>周粒度原始表，Regional IXD performance 等公式的引用源。</td><td>一般不需要人工修改。</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="grid-2 stack" style="margin-top:14px">
+        <details class="panel details"><summary>Overview</summary><div class="body">
+          <p>Overview 包含：报告周期、如何使用、每个 Sheet 的一句话描述、Key terms and definitions、FAQ 1 的区域/rIXD 表，以及 FAQ 2/3 的订单类型与 ACR/VCR 解释。</p>
+          <p>它的区域静态表只用于说明。区域和 rIXD 的映射“会变化”，因此后面工作表的公式结果才代表当期实际归属。</p>
+        </div></details>
+        <details class="panel details"><summary>Overall Trend</summary><div class="body">
+          <p>展示过去 6 周 ACR、Confirmed Units 与 Submitted Units，支持按 ib_region、order_type、vendor code、order_source 筛选。</p>
+          <p>先看全国，再看五个区域：若某区域 ACR 连续走低，就去 Regional IXD performance 查是哪个 rIXD。</p>
+        </div></details>
+        <details class="panel details"><summary>Regional IXD performance</summary><div class="body">
+          <p>当前周 JIT ACR、JIT Submitted Units、JIT Confirmed Units，按五个区域的 Overall 和区域内 rIXD 列出。</p>
+          <p>它只算 JIT，因为每周补货确认是最直接影响库存在途的环节。Overall 行的公式按 Chart Data Week 的 ib_region 汇总；代码行的公式只按 rixd 代码汇总，不看代码在表格里被放在哪个区域组下。</p>
+        </div></details>
+        <details class="panel details"><summary>Detailed rIXD Data</summary><div class="body">
+          <p>字段分组：Product Identity（ASIN、External ID Type、External ID、Vendor Code）、Location（Region、rIXD）、JIT/Non-JIT ACR、Unconfirmed Units、Submitted Units。</p>
+          <p>Current Week 为本周口径，T6Wks/T12Wks 为滚动口径。rIXD 为空或 Region 为 National 的行表示全国网络/全国 FC，不是某个 rIXD。</p>
+        </div></details>
+        <details class="panel details"><summary>Detailed Overall Data</summary><div class="body">
+          <p>没有 Region/rIXD 维度，只按 Product Identity 汇总全网络 JIT/Non-JIT ACR 与数量。</p>
+          <p>用法：如果某个 ASIN 在全国 Overall 低、但只在特定区域低，则先按区域缺货处理；如果全国都低，则可能是供应总量或商品标识问题。</p>
+        </div></details>
+        <details class="panel details"><summary>Chart Data Week</summary><div class="body">
+          <p>字段：order_week、vendor_code、rixd、order_type、order_source、ib_region、submitted_qty、confirmed_qty、recent_submitted_qty、recent_confirmed_qty。</p>
+          <p>Regional IXD performance 的 JIT Submitted Units 实际是 confirmed + recent_submitted - recent_confirmed，也就是 ACR 分母，不是 Chart Data Week 原始的 submitted_qty。</p>
+        </div></details>
+      </div>
+    </section>
+
+    <section class="section" id="defects">
+      <div class="section-head">
+        <div>
+          <span class="index">07</span>
+          <h2>Defect 1-3：判据、数据与建议动作</h2>
+        </div>
+        <span class="desc">本快照内 0 个 Defect 3 行</span>
+      </div>
+
+      <div class="panel panel-pad">
+        <h3>Defect 1：区域确认比例不均衡</h3>
+        <p class="lede">判据：过去 4 周 Amazon 已向 1 个以上收货区域提交 PO，但 ASIN 对该指定区域/rIXD 的确认量相对其他区域不成比例。</p>
+        <div id="defect1Content"></div>
+        <div class="notice">
+          <b>Recommended action：</b>每周尽量全额确认 PO；无法全额确认时，按各区域 PO 规模等比例确认；某区域当周确实无法满足时，下一周优先补该区域，保证区域库存可用。</div>
+      </div>
+      <div style="height:14px"></div>
+
+      <div class="panel panel-pad">
+        <h3>Defect 2：确认量低于均值需求预测</h3>
+        <p class="lede">判据：过去 6 周 Confirm Qty &lt; Mean Demand Forecast。所用 forecast 是下订单周前 6 周共享的预测，并用 VLT 换算需求期。</p>
+        <div id="defect2Content"></div>
+        <div class="notice">
+          <b>Recommended action：</b>确保高订单量 ASIN 的库存覆盖至少达到 mean (p50) forecast，避免缺货和高 ROOS。</div>
+      </div>
+      <div style="height:14px"></div>
+
+      <div class="panel panel-pad">
+        <h3>Defect 3：SKU 标识缺陷</h3>
+        <p class="lede">本文件该 Sheet 没有数据行，判据仍在原表保留。</p>
+        <p>条件组 1：存在未完成产品订单、ASIN 在该 External ID 过去 36 个月没有确认记录、但在另一个 External ID 有确认记录，说明商品可能用了错误的条码/External ID。</p>
+        <p>条件组 2：商品因 invalid product ID 被 soft-reject，且该 External ID 过去 36 个月未确认过。</p>
+        <div class="notice">
+          <b>Recommended action：</b>通过 Vendor Central 的 Contact us 选择 Manage my catalog，使用 Item ID update 提交匹配正确 External ID 的 Case。</div>
+      </div>
+    </section>
+
+    <section class="section" id="checklist">
+      <div class="section-head">
+        <div>
+          <span class="index">08</span>
+          <h2>每周处理清单</h2>
+        </div>
+      </div>
+      <div class="panel panel-pad grid-2">
+        <div>
+          <h3>先做判断</h3>
+          <ul>
+            <li>查看 Overall Trend：全国和五个区域 JIT ACR 相比 T6/T12 是否下降。</li>
+            <li>查看 Regional IXD performance：找出低于区域 Overall 的 rIXD。</li>
+            <li>用 Detailed rIXD Data 定位 ASIN 与未确认数量。</li>
+          </ul>
+        </div>
+        <div>
+          <h3>再采取动作</h3>
+          <ul>
+            <li>每周把 PO 尽量全额确认，做不到就按区域 PO 规模等比例确认。</li>
+            <li>缺货区域下一周优先补货。</li>
+            <li>Defect 2 的 ASIN 维持至少 p50 forecast 的库存覆盖。</li>
+            <li>Defect 3 的条码/External ID 问题用 Item ID update 提 Case。</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <p class="footnote">
+      本页由 RACR_Workbook-regional IXD .xlsx 整理生成。数据周期为该文件 Overview 声明的
+      April 06 - April 12, 2025；Amazon 提示区域与 rIXD 映射可能变化，请以当期 Vendor Central 信息为准。
+    </p>
+  </main>
+
+  <script>
+window.ACR_DATA = {"workbook":{"display_title":"ASIN Confirmation Rate Workbook","file_name":"RACR_Workbook-regional IXD .xlsx","period":"April 06, 2025 - April 12, 2025","chart_weeks":["2025-03-08","2025-03-15","2025-03-22","2025-03-29","2025-04-05","2025-04-12"],"current_week":"2025-04-12","vendor_codes":["C96QA"]},"static_regions":[{"region":"MidAtlantic","codes":[{"code":"ABE8","location":"309 Cedar Lane, Florence, 8518, NJ","chart_rows":6,"actual_regions":["MidAtlantic"],"actual_region":"MidAtlantic","actual_region_majority_pct":100.0},{"code":"FWA4","location":"9800 Smith Road, Ft Wayne, 46818, IN","chart_rows":4,"actual_regions":["MidAtlantic"],"actual_region":"MidAtlantic","actual_region_majority_pct":100.0},{"code":"MQJ1","location":"4412 CR W 300 N, Greenfield, 46140-7099, IN","chart_rows":5,"actual_regions":["MidAtlantic"],"actual_region":"MidAtlantic","actual_region_majority_pct":100.0},{"code":"RFD2","location":"11500 Freeman Road, HUNTLEY, 60142, IL","chart_rows":7,"actual_regions":["Central"],"actual_region":"Central","actual_region_majority_pct":100.0},{"code":"ORF2","location":"5045 Portsmouth Blvd., Chesapeake, 23321-1425, VA","chart_rows":5,"actual_regions":["MidAtlantic"],"actual_region":"MidAtlantic","actual_region_majority_pct":100.0},{"code":"RMN3","location":"220 Centreport Parkway, FREDERICKSBURG, 22406, VA","chart_rows":5,"actual_regions":["MidAtlantic"],"actual_region":"MidAtlantic","actual_region_majority_pct":100.0}]},{"region":"SouthEast","codes":[{"code":"CLT2","location":"10240 Old Dowd Rd, Charlotte, 28214-8082, NC","chart_rows":7,"actual_regions":["SouthEast"],"actual_region":"SouthEast","actual_region_majority_pct":100.0},{"code":"GYR2","location":"17341 W Minnezona Ave, Goodyear, 85395, AZ","chart_rows":9,"actual_regions":["SouthEast"],"actual_region":"SouthEast","actual_region_majority_pct":100.0},{"code":"MEM1","location":"3292 E Holmes Rd, Memphis, 38118-8102, TN","chart_rows":5,"actual_regions":["SouthEast"],"actual_region":"SouthEast","actual_region_majority_pct":100.0},{"code":"RDU2","location":"2150 US HWY 70 Business West, SMITHFIELD, 27577, NC","chart_rows":4,"actual_regions":["SouthEast"],"actual_region":"SouthEast","actual_region_majority_pct":100.0},{"code":"IAH3","location":"15525 Milner Road, HOUSTON, 77032, TX","chart_rows":4,"actual_regions":["Central"],"actual_region":"Central","actual_region_majority_pct":100.0},{"code":"XMI3","location":"7101 NW 32nd Ave, Miami, 33147, FL","chart_rows":5,"actual_regions":["SouthEast"],"actual_region":"SouthEast","actual_region_majority_pct":100.0}]},{"region":"NorthEast","codes":[{"code":"AVP1","location":"550 Oak Ridge Rd, Hazleton, 18202, PA","chart_rows":8,"actual_regions":["NorthEast"],"actual_region":"NorthEast","actual_region_majority_pct":100.0},{"code":"SWF2","location":"76 Patriot Way, Hopewell Junction, 12533-6159, NY","chart_rows":5,"actual_regions":["NorthEast"],"actual_region":"NorthEast","actual_region_majority_pct":100.0},{"code":"TEB9","location":"601 Randolph Road, SOMERSET, 8873, NJ","chart_rows":6,"actual_regions":["NorthEast"],"actual_region":"NorthEast","actual_region_majority_pct":100.0},{"code":"XCH2","location":"2150 Dean Forest Road, Garden City, 31408, GA","chart_rows":3,"actual_regions":["NorthEast"],"actual_region":"NorthEast","actual_region_majority_pct":100.0}]},{"region":"WestCoast","codes":[{"code":"GYR3","location":"8181 W ROOSEVELT ST, PHOENIX, 85043-2356, AZ","chart_rows":6,"actual_regions":["WestCoast"],"actual_region":"WestCoast","actual_region_majority_pct":100.0},{"code":"LAS1","location":"12300 Bermuda Road, HENDERSON, 89044, NV","chart_rows":5,"actual_regions":["WestCoast"],"actual_region":"WestCoast","actual_region_majority_pct":100.0},{"code":"LAX9","location":"11263 Oleander Ave, FONTANA, 92337-7441, CA","chart_rows":5,"actual_regions":["WestCoast"],"actual_region":"WestCoast","actual_region_majority_pct":100.0},{"code":"LGB8","location":"1568 N Linden Ave, Rialto, CA, 92376, US","chart_rows":0,"actual_regions":[],"actual_region":null},{"code":"SCK4","location":"6001 S Austin Rd, Stockton, 95215, CA","chart_rows":12,"actual_regions":["WestCoast"],"actual_region":"WestCoast","actual_region_majority_pct":100.0},{"code":"SMF3","location":"3923 B Street, Stockton, 95206, CA","chart_rows":4,"actual_regions":["WestCoast"],"actual_region":"WestCoast","actual_region_majority_pct":100.0},{"code":"VGT2","location":"6401 Howdy Wells Ave, Las Vegas, 89115-2013, NV","chart_rows":5,"actual_regions":["WestCoast"],"actual_region":"WestCoast","actual_region_majority_pct":100.0}]},{"region":"Central","codes":[{"code":"FTW1","location":"33333 LBJ FWY, Dallas, 75241-7203, TX","chart_rows":7,"actual_regions":["Central"],"actual_region":"Central","actual_region_majority_pct":100.0},{"code":"ONT8","location":"24300 Nandina Ave, Moreno Valley, CA, 92551, US","chart_rows":0,"actual_regions":[],"actual_region":null},{"code":"IND9","location":"1151 S GRAHAM RD, GREENWOOD, 46143-7830, IN","chart_rows":5,"actual_regions":["Central"],"actual_region":"Central","actual_region_majority_pct":100.0},{"code":"MDW2","location":"250 Emerald Drive, Joliet, 60433-9642, IL","chart_rows":6,"actual_regions":["Central"],"actual_region":"Central","actual_region_majority_pct":100.0},{"code":"SBD1","location":"3388 S Cactus Ave, BLOOMINGTON, CA, 92316, US","chart_rows":0,"actual_regions":[],"actual_region":null},{"code":"XBN3","location":"2400 Stateline Rd W, Southaven, 38671, MS","chart_rows":5,"actual_regions":["Central"],"actual_region":"Central","actual_region_majority_pct":100.0}]}],"trend":[{"week":"2025-03-08","jit":{"confirmed":225479,"submitted":283914,"acr":79.42},"nonjit":{"confirmed":103136,"submitted":193528,"acr":53.29},"regions":{"MidAtlantic":{"confirmed":28937,"submitted":42092,"acr":68.75},"SouthEast":{"confirmed":29070,"submitted":35538,"acr":81.8},"NorthEast":{"confirmed":18551,"submitted":26257,"acr":70.65},"WestCoast":{"confirmed":29875,"submitted":38346,"acr":77.91},"Central":{"confirmed":80459,"submitted":98962,"acr":81.3}}},{"week":"2025-03-15","jit":{"confirmed":225818,"submitted":259860,"acr":86.9},"nonjit":{"confirmed":4999,"submitted":5179,"acr":96.52},"regions":{"MidAtlantic":{"confirmed":38478,"submitted":47403,"acr":81.17},"SouthEast":{"confirmed":56236,"submitted":63753,"acr":88.21},"NorthEast":{"confirmed":24234,"submitted":27839,"acr":87.05},"WestCoast":{"confirmed":32835,"submitted":38270,"acr":85.8},"Central":{"confirmed":33959,"submitted":37364,"acr":90.89}}},{"week":"2025-03-22","jit":{"confirmed":245716,"submitted":298800,"acr":82.23},"nonjit":{"confirmed":0,"submitted":0,"acr":null},"regions":{"MidAtlantic":{"confirmed":20669,"submitted":24235,"acr":85.29},"SouthEast":{"confirmed":30737,"submitted":38108,"acr":80.66},"NorthEast":{"confirmed":19872,"submitted":22576,"acr":88.02},"WestCoast":{"confirmed":49910,"submitted":58751,"acr":84.95},"Central":{"confirmed":48241,"submitted":55416,"acr":87.05}}},{"week":"2025-03-29","jit":{"confirmed":208908,"submitted":280932,"acr":74.36},"nonjit":{"confirmed":15944,"submitted":16154,"acr":98.7},"regions":{"MidAtlantic":{"confirmed":0,"submitted":0,"acr":null},"SouthEast":{"confirmed":35596,"submitted":49134,"acr":72.45},"NorthEast":{"confirmed":10746,"submitted":15285,"acr":70.3},"WestCoast":{"confirmed":34400,"submitted":45650,"acr":75.36},"Central":{"confirmed":81552,"submitted":107747,"acr":75.69}}},{"week":"2025-04-05","jit":{"confirmed":151824,"submitted":192696,"acr":78.79},"nonjit":{"confirmed":362,"submitted":362,"acr":100.0},"regions":{"MidAtlantic":{"confirmed":0,"submitted":0,"acr":null},"SouthEast":{"confirmed":28868,"submitted":37143,"acr":77.72},"NorthEast":{"confirmed":9980,"submitted":11714,"acr":85.2},"WestCoast":{"confirmed":30011,"submitted":36561,"acr":82.08},"Central":{"confirmed":60216,"submitted":74858,"acr":80.44}}},{"week":"2025-04-12","jit":{"confirmed":171895,"submitted":225703,"acr":76.16},"nonjit":{"confirmed":8498,"submitted":8498,"acr":100.0},"regions":{"MidAtlantic":{"confirmed":0,"submitted":0,"acr":null},"SouthEast":{"confirmed":27139,"submitted":38772,"acr":70.0},"NorthEast":{"confirmed":17845,"submitted":20746,"acr":86.02},"WestCoast":{"confirmed":34084,"submitted":42165,"acr":80.83},"Central":{"confirmed":39580,"submitted":55252,"acr":71.64}}}],"snapshot":{"detailed_rIXD_rows":1371,"overall_rows":531,"unique_asins":531,"external_id_types":{"UPC":425,"EAN":76,"ASIN":29,"GTIN":1},"rows_by_region":{"National IXD":276,"WestCoast":284,"SouthEast":246,"Central":273,"NorthEast":184,"National FC (Non-Sort)":106,"National FC (Sort)":2},"defect1_rows":794,"defect1_asins":329,"defect1_by_region":{"Central":252,"WestCoast":179,"SouthEast":199,"NorthEast":129,"MidAtlantic":35},"defect1_by_rixd":{"RFD2":142,"SCK4":140,"GYR2":126,"AVP1":98,"MDW2":37,"LAS1":9,"ABE8":28,"XMI3":36,"CLT2":33,"IND9":43,"IAH3":1,"SMF3":21,"XBN3":20,"XCH2":28,"MEM1":4,"MQJ1":6,"FTW1":9,"GYR3":7,"TEB9":3,"VGT2":1,"FWA4":1,"LAX9":1},"defect2_rows":44,"defect2_asins":44,"defect3_rows":0},"sample_data":{"defect1_top":[{"asin":"B0CP5DW6GH","vendor":"C96QA","external_id":"716151400988","region":"Central","rixd":"RFD2","submitted":10000},{"asin":"B09C32DYV1","vendor":"C96QA","external_id":"745924877917","region":"WestCoast","rixd":"SCK4","submitted":7680},{"asin":"B0DBLR63W9","vendor":"C96QA","external_id":"4894935979748","region":"Central","rixd":"RFD2","submitted":6970},{"asin":"B0B81LSL6Q","vendor":"C96QA","external_id":"197644504701","region":"SouthEast","rixd":"GYR2","submitted":4980},{"asin":"B09FJSJQ95","vendor":"C96QA","external_id":"727431004949","region":"WestCoast","rixd":"SCK4","submitted":4680},{"asin":"B0DBLR63W9","vendor":"C96QA","external_id":"4894935979748","region":"SouthEast","rixd":"GYR2","submitted":4322},{"asin":"B09FJSJQ95","vendor":"C96QA","external_id":"727431004949","region":"Central","rixd":"RFD2","submitted":4014},{"asin":"B0CLN9QH3R","vendor":"C96QA","external_id":"737970849055","region":"SouthEast","rixd":"GYR2","submitted":3750},{"asin":"B09VPH33J8","vendor":"C96QA","external_id":"198715811476","region":"WestCoast","rixd":"SCK4","submitted":3600},{"asin":"B09VPH33J8","vendor":"C96QA","external_id":"198715811476","region":"SouthEast","rixd":"GYR2","submitted":3400},{"asin":"B0DLBB3LNC","vendor":"C96QA","external_id":"850066548974","region":"Central","rixd":"RFD2","submitted":3060},{"asin":"B0DJT15WP6","vendor":"C96QA","external_id":"810179850067","region":"WestCoast","rixd":"SCK4","submitted":2800}],"defect2_top":[{"asin":"B0D5Q7TNCG","external_id":"767461336870","forecast":12614.4104,"confirm_qty":11800,"acr":null},{"asin":"B08839L43J","external_id":"860007976506","forecast":5889.42606,"confirm_qty":3952,"acr":null},{"asin":"B0CTRXY6G2","external_id":"712110484457","forecast":3573.26767,"confirm_qty":2016,"acr":0.0903225806451612},{"asin":"B0BGN335KB","external_id":"860011529705","forecast":2894.79144,"confirm_qty":1248,"acr":0.3070866141732283},{"asin":"B0C9WJWHD6","external_id":"860011241027","forecast":1889.03109,"confirm_qty":840,"acr":null},{"asin":"B07F1258FR","external_id":"614993135719","forecast":1865.17305,"confirm_qty":1800,"acr":0.4285714285714285},{"asin":"B0BCVRHFX8","external_id":"B0BCVRHFX8","forecast":1668.38084,"confirm_qty":525,"acr":null},{"asin":"B0BZCRKKDC","external_id":"614141848027","forecast":1480.49461,"confirm_qty":1260,"acr":null},{"asin":"B0CDPNQ54P","external_id":"810151447032","forecast":1400.70399,"confirm_qty":402,"acr":null},{"asin":"B0CKP8CBLK","external_id":"198715976656","forecast":1302.77609,"confirm_qty":0,"acr":0},{"asin":"B085ZFDMMX","external_id":"850048347656","forecast":1227.26684,"confirm_qty":1088,"acr":null},{"asin":"B0DCNQM1PY","external_id":"850066337042","forecast":1118.21302,"confirm_qty":450,"acr":null}]},"current_by_code":{"ABE8":{"confirmed":0,"submitted":0,"acr":null},"FWA4":{"confirmed":0,"submitted":0,"acr":null},"MQJ1":{"confirmed":0,"submitted":0,"acr":null},"RFD2":{"confirmed":39580,"submitted":55252,"acr":71.64},"ORF2":{"confirmed":0,"submitted":0,"acr":null},"RMN3":{"confirmed":0,"submitted":0,"acr":null},"CLT2":{"confirmed":0,"submitted":0,"acr":null},"GYR2":{"confirmed":27139,"submitted":38772,"acr":70.0},"MEM1":{"confirmed":0,"submitted":0,"acr":null},"RDU2":{"confirmed":0,"submitted":0,"acr":null},"IAH3":{"confirmed":0,"submitted":0,"acr":null},"XMI3":{"confirmed":0,"submitted":0,"acr":null},"AVP1":{"confirmed":17845,"submitted":20746,"acr":86.02},"SWF2":{"confirmed":0,"submitted":0,"acr":null},"TEB9":{"confirmed":0,"submitted":0,"acr":null},"XCH2":{"confirmed":0,"submitted":0,"acr":null},"GYR3":{"confirmed":0,"submitted":0,"acr":null},"LAS1":{"confirmed":0,"submitted":0,"acr":null},"LAX9":{"confirmed":0,"submitted":0,"acr":null},"LGB8":{"confirmed":0,"submitted":0,"acr":null},"SCK4":{"confirmed":34084,"submitted":42165,"acr":80.83},"SMF3":{"confirmed":0,"submitted":0,"acr":null},"VGT2":{"confirmed":0,"submitted":0,"acr":null},"FTW1":{"confirmed":0,"submitted":0,"acr":null},"ONT8":{"confirmed":0,"submitted":0,"acr":null},"IND9":{"confirmed":0,"submitted":0,"acr":null},"MDW2":{"confirmed":0,"submitted":0,"acr":null},"SBD1":{"confirmed":0,"submitted":0,"acr":null},"XBN3":{"confirmed":0,"submitted":0,"acr":null}}};
+</script>
+  <script>
+(function () {
+  const DATA = window.ACR_DATA;
+  if (!DATA) return;
+
+  const REGION_COLORS = {
+    WestCoast: "#0f766e",
+    Central: "#be123c",
+    MidAtlantic: "#2563eb",
+    NorthEast: "#7c3aed",
+    SouthEast: "#c2410c",
+  };
+
+  const REGION_LABELS = {
+    WestCoast: "WestCoast 西岸",
+    Central: "Central 中区",
+    MidAtlantic: "MidAtlantic 中大西洋",
+    NorthEast: "NorthEast 东北",
+    SouthEast: "SouthEast 东南",
+  };
+
+  const fmt = (v) =>
+    v === null || v === undefined || Number.isNaN(v)
+      ? "-"
+      : Number(v).toLocaleString("en-US");
+
+  const pct = (v) => (v === null || v === undefined ? "N/A" : v.toFixed(2) + "%");
+
+  const acrClass = (v) => {
+    if (v === null || v === undefined) return "na";
+    if (v >= 90) return "acr-ok";
+    if (v >= 75) return "";
+    return "acr-warn";
+  };
+
+  function codeActual(row) {
+    const chartRegion = row.actual_region;
+    const chartRows = row.chart_rows || 0;
+    return { chartRegion, chartRows };
+  }
+
+  function metricCurrent(code) {
+    const m = DATA.current_by_code[code] || { submitted: 0, confirmed: 0, acr: null };
+    return {
+      submitted: m.submitted || 0,
+      confirmed: m.confirmed || 0,
+      acr: m.acr === null || m.acr === undefined ? null : m.acr,
+    };
+  }
+
+  function renderMiniMap(el) {
+    const html = DATA.static_regions
+      .map((group) => {
+        const color = REGION_COLORS[group.region] || "#111827";
+        return (
+          '<div class="cell" style="border-top:3px solid ' +
+          color +
+          '">' +
+          '<span class="count">' +
+          group.codes.length +
+          "</span>" +
+          '<span class="label">' +
+          group.region +
+          "</span></div>"
+        );
+      })
+      .join("");
+    el.innerHTML = '<div class="mini-map">' + html + "</div>";
+  }
+
+  function renderRegionCards(el, compact) {
+    const html = DATA.static_regions
+      .map((group) => {
+        const color = REGION_COLORS[group.region] || "#111827";
+        const codes = group.codes
+          .map((row) => {
+            const { chartRegion } = codeActual(row);
+            const badge =
+              row.chart_rows === 0
+                ? '<span class="flag">本文件 Chart 表未出现</span>'
+                : chartRegion && chartRegion !== group.region
+                  ? '<span class="flag">数据行归属 ' + chartRegion + "</span>"
+                  : "";
+            return (
+              '<div class="code-box">' +
+              '<span class="code">' +
+              row.code +
+              "</span>" +
+              '<span class="place">' +
+              (compact ? "" : row.location) +
+              "</span>" +
+              badge +
+              "</div>"
+            );
+          })
+          .join("");
+        return (
+          '<article class="region-card" style="border-top:3px solid ' +
+          color +
+          '">' +
+          "<header>" +
+          '<span class="swatch" style="background:' +
+          color +
+          '"></span>' +
+          "<h3>" +
+          group.region +
+          "</h3>" +
+          '<span class="count">' +
+          group.codes.length +
+          " 个 rIXD</span></header>" +
+          '<div class="body"><div class="code-grid">' +
+          codes +
+          "</div></div></article>"
+        );
+      })
+      .join("");
+    el.innerHTML = '<div class="region-cards">' + html + "</div>";
+  }
+
+  function renderPerformance(el) {
+    const rows = [];
+    DATA.static_regions.forEach((group) => {
+      const overall = DATA.trend[DATA.trend.length - 1].regions[group.region];
+      rows.push(
+        '<tr style="background:#f6f8fb">' +
+          "<td><strong>" +
+          group.region +
+          " Overall</strong></td><td>" +
+          (REGION_LABELS[group.region] || "") +
+          "</td><td class='num'>" +
+          fmt(overall.submitted) +
+          "</td><td class='num'>" +
+          fmt(overall.confirmed) +
+          "</td><td class='num " +
+          acrClass(overall.acr) +
+          "'>" +
+          pct(overall.acr) +
+          "</td></tr>"
+      );
+      group.codes.forEach((row) => {
+        const m = metricCurrent(row.code);
+        const { chartRegion } = codeActual(row);
+        const diff =
+          row.chart_rows && chartRegion && chartRegion !== group.region
+            ? ' <span class="pill diff">' + chartRegion + "</span>"
+            : row.chart_rows === 0
+              ? ' <span class="pill">未出现</span>'
+              : "";
+        rows.push(
+          "<tr>" +
+            '<td><span class="mono">' +
+            row.code +
+            "</span></td><td>" +
+            group.region +
+            diff +
+            "</td><td class='num'>" +
+            fmt(m.submitted) +
+            "</td><td class='num'>" +
+            fmt(m.confirmed) +
+            "</td><td class='num " +
+            acrClass(m.acr) +
+            "'>" +
+            pct(m.acr) +
+            "</td></tr>"
+        );
+      });
+    });
+    el.innerHTML =
+      '<div class="table-wrap"><table><thead><tr><th>rIXD</th><th>静态区域 / 数据差异</th>' +
+      '<th class="num">JIT 口径 Submitted Units</th><th class="num">JIT Confirmed Units</th>' +
+      '<th class="num">JIT ACR Current Week</th></tr></thead><tbody>' +
+      rows.join("") +
+      "</tbody></table></div>" +
+      "<p class='footnote'>按 Chart Data Week 中 “2025-04-12” 周的 Just-in-Time 行计算，" +
+      "口径与 Regional IXD performance 中的 SUMIFS 公式一致。Overall 行按 Chart Data Week 的 ib_region 汇总；" +
+      "下方 rIXD 代码行只按代码查询，不受代码在静态区域分组中的位置影响。</p>";
+  }
+
+  function svgTrendChart(el) {
+    const W = 940;
+    const H = 300;
+    const pad = { l: 46, r: 18, t: 18, b: 34 };
+    const weeks = DATA.trend;
+    const n = weeks.length;
+    const yMin = 60;
+    const yMax = 100;
+    const innerW = W - pad.l - pad.r;
+    const innerH = H - pad.t - pad.b;
+    const x = (i) => pad.l + (n === 1 ? 0 : (i / (n - 1)) * innerW);
+    const y = (v) => pad.t + ((yMax - v) / (yMax - yMin)) * innerH;
+
+    const lines = [
+      { key: "__national__", label: "National JIT ACR", color: "#18222f", width: 2.5 },
+      ...DATA.static_regions.map((g) => ({
+        key: g.region,
+        label: REGION_LABELS[g.region],
+        color: REGION_COLORS[g.region],
+        width: 1.8,
+      })),
+    ];
+
+    let grid = "";
+    for (let v = yMin; v <= yMax; v += 5) {
+      grid +=
+        '<line x1="' +
+        pad.l +
+        '" y1="' +
+        y(v) +
+        '" x2="' +
+        (W - pad.r) +
+        '" y2="' +
+        y(v) +
+        '" stroke="#d9e1e9" stroke-dasharray="3 4"/>' +
+        '<text x="' +
+        (pad.l - 8) +
+        '" y="' +
+        (y(v) + 4) +
+        '" text-anchor="end" font-size="10" fill="#5d6b7a">' +
+        v +
+        "%</text>";
+    }
+
+    const xLabels = weeks
+      .map(
+        (w, i) =>
+          '<text x="' +
+          x(i) +
+          '" y="' +
+          (H - 10) +
+          '" text-anchor="middle" font-size="11" fill="#5d6b7a">' +
+          w.week.slice(5).replace("-", "/") +
+          "</text>"
+      )
+      .join("");
+
+    let paths = "";
+    lines.forEach((line) => {
+      const pts = weeks.map((w, i) => ({
+        i,
+        v: line.key === "__national__" ? w.jit.acr : w.regions[line.key] && w.regions[line.key].acr,
+      }));
+      let d = "";
+      let drawing = false;
+      pts.forEach((pt) => {
+        if (pt.v === null || pt.v === undefined) {
+          drawing = false;
+          return;
+        }
+        if (!drawing) {
+          d += "M" + x(pt.i).toFixed(1) + " " + y(pt.v).toFixed(1) + " ";
+          drawing = true;
+        } else {
+          d += "L" + x(pt.i).toFixed(1) + " " + y(pt.v).toFixed(1) + " ";
+        }
+      });
+      paths +=
+        '<path d="' +
+        d +
+        '" fill="none" stroke="' +
+        line.color +
+        '" stroke-width="' +
+        line.width +
+        '" stroke-linecap="round" stroke-linejoin="round"/>';
+    });
+
+    const legend = lines
+      .map(
+        (l) =>
+          '<span class="item"><span class="swatch" style="background:' +
+          l.color +
+          '"></span>' +
+          l.label +
+          "</span>"
+      )
+      .join("");
+    el.innerHTML =
+      '<svg class="chart" viewBox="0 0 ' +
+      W +
+      " " +
+      H +
+      '" role="img" aria-label="Six week JIT ACR trend">' +
+      grid +
+      xLabels +
+      paths +
+      "</svg><div class='legend'>" +
+      legend +
+      "</div>";
+  }
+
+  function renderTrendTable(el) {
+    const rows = DATA.trend
+      .map((w) => {
+        const j = w.jit;
+        const nj = w.nonjit;
+        return (
+          "<tr><td>" +
+          w.week +
+          "</td><td class='num'>" +
+          fmt(j.submitted) +
+          "</td><td class='num'>" +
+          fmt(j.confirmed) +
+          "</td><td class='num " +
+          acrClass(j.acr) +
+          "'>" +
+          pct(j.acr) +
+          "</td><td class='num'>" +
+          fmt(nj.submitted) +
+          "</td><td class='num'>" +
+          fmt(nj.confirmed) +
+          "</td><td class='num " +
+          acrClass(nj.acr) +
+          "'>" +
+          pct(nj.acr) +
+          "</td></tr>"
+        );
+      })
+      .reverse()
+      .join("");
+    el.innerHTML =
+      '<div class="table-wrap"><table><thead><tr><th>订单周</th>' +
+      '<th class="num">JIT ACR 分母 Units</th><th class="num">JIT Confirmed</th>' +
+      '<th class="num">JIT ACR</th><th class="num">Non-JIT 分母 Units</th>' +
+      '<th class="num">Non-JIT Confirmed</th><th class="num">Non-JIT ACR</th>' +
+      "</tr></thead><tbody>" +
+      rows +
+      "</tbody></table></div>";
+  }
+
+  function barCell(count, total) {
+    const width = total ? Math.max(2, Math.round((count / total) * 100)) : 0;
+    return (
+      '<td class="num">' +
+      count +
+      '</td><td style="min-width:170px"><div class="bar-track"><div class="bar-fill" style="width:' +
+      width +
+      '%"></div></div></td>'
+    );
+  }
+
+  function renderSnapshotRegion(el) {
+    const rows = DATA.snapshot.rows_by_region;
+    const total = Object.values(rows).reduce((a, b) => a + b, 0);
+    const html = Object.keys(rows)
+      .map((r) => {
+        const count = rows[r];
+        return (
+          "<tr><td>" +
+          r +
+          "</td>" +
+          barCell(count, total) +
+          '<td class="num">' +
+          Math.round((count / total) * 100) +
+          "%</td></tr>"
+        );
+      })
+      .join("");
+    el.innerHTML =
+      '<div class="table-wrap"><table><thead><tr><th>Detailed rIXD 中的 Region 值</th>' +
+      "<th></th><th class='num'>占比</th></tr></thead><tbody>" +
+      html +
+      "</tbody></table></div>";
+  }
+
+  function defect1Section(el) {
+    const regionTotal = DATA.snapshot.defect1_rows;
+    const regions = Object.entries(DATA.snapshot.defect1_by_region)
+      .sort((a, b) => b[1] - a[1])
+      .map(
+        ([r, n]) =>
+          "<tr><td>" +
+          r +
+          "</td>" +
+          barCell(n, regionTotal) +
+          '<td class="num">' +
+          Math.round((n / regionTotal) * 100) +
+          "%</td></tr>"
+      )
+      .join("");
+    const rixd = Object.entries(DATA.snapshot.defect1_by_rixd)
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 10)
+      .map(
+        ([r, n]) =>
+          "<tr><td><span class='mono'>" +
+          r +
+          "</span></td><td class='num'>" +
+          n +
+          "</td></tr>"
+      )
+      .join("");
+    const top = DATA.sample_data.defect1_top
+      .map(
+        (x) =>
+          "<tr><td><span class='mono'>" +
+          x.asin +
+          "</span></td><td><span class='mono'>" +
+          x.vendor +
+          "</span></td><td>" +
+          x.region +
+          " / " +
+          x.rixd +
+          "</td><td class='num'>" +
+          fmt(x.submitted) +
+          "</td></tr>"
+      )
+      .join("");
+    el.innerHTML =
+      '<div class="grid-2"><div class="panel panel-pad"><h3>按 Inbound Region</h3>' +
+      '<div class="table-wrap"><table><thead><tr><th>Region</th><th></th><th class="num">占比</th></tr></thead><tbody>' +
+      regions +
+      "</tbody></table></div></div>" +
+      '<div class="panel panel-pad"><h3>Top rIXD</h3><div class="table-wrap"><table><thead><tr><th>rIXD</th><th class="num">缺陷行数</th></tr></thead><tbody>' +
+      rixd +
+      "</tbody></table></div></div></div>" +
+      '<div class="panel panel-pad" style="margin-top:14px"><h3>按 T4W Submitted Units 排序的样例</h3>' +
+      '<div class="table-wrap"><table><thead><tr><th>ASIN</th><th>Vendor Code</th><th>Inbound Region / rIXD</th><th class="num">T4W Submitted Units</th></tr></thead><tbody>' +
+      top +
+      "</tbody></table></div></div>";
+  }
+
+  function defect2Section(el) {
+    const top = DATA.sample_data.defect2_top
+      .map((x) => {
+        const forecast = x.forecast === null ? null : Number(x.forecast);
+        const confirm = x.confirm_qty === null ? null : Number(x.confirm_qty);
+        const acr = x.acr === null || x.acr === undefined ? null : Number(x.acr) * 100;
+        return (
+          "<tr><td><span class='mono'>" +
+          x.asin +
+          "</span></td><td><span class='mono'>" +
+          x.external_id +
+          "</span></td><td class='num'>" +
+          (forecast === null ? "-" : forecast.toFixed(2)) +
+          "</td><td class='num'>" +
+          fmt(confirm) +
+          "</td><td class='num " +
+          acrClass(acr) +
+          "'>" +
+          pct(acr) +
+          "</td></tr>"
+        );
+      })
+      .join("");
+    el.innerHTML =
+      '<div class="table-wrap"><table><thead><tr><th>ASIN ID</th><th>External ID</th>' +
+      '<th class="num">T6WK Mean Forecast</th><th class="num">T6WK Confirm Qty</th>' +
+      '<th class="num">T6WK JIT Orders ACR</th></tr></thead><tbody>' +
+      top +
+      "</tbody></table></div>";
+  }
+
+  function statCards(el) {
+    const cards = [
+      { n: DATA.snapshot.unique_asins, label: "本工作簿 ASIN 数（Detailed 表）" },
+      { n: DATA.snapshot.detailed_rIXD_rows, label: "Detailed rIXD Data 行数" },
+      {
+        n: DATA.static_regions.reduce((a, g) => a + g.codes.length, 0),
+        label: "Overview 列出的 rIXD 仓库代码",
+      },
+      { n: DATA.trend.length, label: "Chart Data Week 覆盖周数" },
+      { n: DATA.snapshot.defect1_rows, label: "Defect 1 缺陷行数" },
+      { n: DATA.snapshot.defect2_asins, label: "Defect 2 唯一 ASIN 数" },
+    ];
+    el.innerHTML =
+      '<div class="grid-3">' +
+      cards
+        .map(
+          (c) =>
+            '<div class="stat-card"><div class="num">' +
+            c.n +
+            "</div><div class='label'>" +
+            c.label +
+            "</div></div>"
+        )
+        .join("") +
+      "</div>";
+  }
+
+  function regionMapRows(filters) {
+    const rows = [];
+    DATA.static_regions.forEach((group) => {
+      group.codes.forEach((row) => {
+        const m = metricCurrent(row.code);
+        const { chartRegion, chartRows } = codeActual(row);
+        const diff = row.chart_rows && chartRegion && chartRegion !== group.region;
+        if (filters) {
+          if (filters.mode === "present" && row.chart_rows === 0) return;
+          if (filters.mode === "diff" && !diff) return;
+          if (
+            filters.q &&
+            !(
+              row.code +
+              " " +
+              group.region +
+              " " +
+              (REGION_LABELS[group.region] || "") +
+              " " +
+              row.location +
+              " " +
+              (chartRegion || "") +
+              " " +
+              (REGION_LABELS[chartRegion] || "")
+            )
+              .toLowerCase()
+              .includes(filters.q)
+          )
+            return;
+        }
+        const badges =
+          '<span class="pill region">Overview: ' +
+          group.region +
+          "</span>" +
+          (chartRegion
+            ? diff
+              ? '<span class="pill diff">数据 ib_region: ' + chartRegion + "</span>"
+              : '<span class="pill ok">数据一致</span>'
+            : '<span class="pill">本文件数据未出现</span>') +
+          '<span class="pill">' +
+          chartRows +
+          " 行</span>";
+        rows.push(
+          '<div class="map-row"><div class="head"><span class="mono" style="font-size:17px;font-weight:800">' +
+            row.code +
+            "</span>" +
+            badges +
+            "</div><div class='body'>" +
+            "<div class='field'><span class='k'>地址（Overview 静态表）</span><span class='v'>" +
+            row.location +
+            "</span></div>" +
+            "<div class='field'><span class='k'>报告周 JIT Confirmed Units</span><span class='v'>" +
+            fmt(m.confirmed) +
+            "</span></div>" +
+            "<div class='field'><span class='k'>报告周 JIT ACR 分母</span><span class='v'>" +
+            fmt(m.submitted) +
+            "</span></div>" +
+            "<div class='field'><span class='k'>报告周 JIT ACR</span><span class='v " +
+            acrClass(m.acr) +
+            "'>" +
+            pct(m.acr) +
+            "</span></div></div></div>"
+        );
+      });
+    });
+    return rows;
+  }
+
+  function pageRegionMap(container) {
+    const D = DATA;
+    const totalCodes = D.static_regions.reduce((a, g) => a + g.codes.length, 0);
+    const presentCodes = D.static_regions.reduce(
+      (a, g) => a + g.codes.filter((c) => c.chart_rows > 0).length,
+      0
+    );
+    const diffCodes = D.static_regions.reduce(
+      (a, g) =>
+        a +
+        g.codes.filter((c) => c.chart_rows > 0 && c.actual_region && c.actual_region !== g.region)
+          .length,
+      0
+    );
+    const stats = [
+      { n: totalCodes, label: "Overview 区域对照表列出的 rIXD" },
+      { n: 5, label: "区域化 IXD 网络区域数" },
+      { n: presentCodes, label: "Chart Data Week 中出现的 rIXD" },
+      { n: diffCodes, label: "静态表与数据 ib_region 不一致代码" },
+    ];
+    const statHtml =
+      '<div class="grid-3">' +
+      stats
+        .map(
+          (s) =>
+            '<div class="stat-card"><div class="num">' +
+            s.n +
+            "</div><div class='label'>" +
+            s.label +
+            "</div></div>"
+        )
+        .join("") +
+      "</div>";
+
+    const controls =
+      '<div class="controls"><input type="search" id="rixdSearch" placeholder="搜索仓库代码、区域、地址..." aria-label="搜索仓库代码">' +
+      '<div class="seg" role="group" aria-label="筛选"><button data-mode="all" class="active">全部</button>' +
+      '<button data-mode="present">有本表数据</button><button data-mode="diff">归属有差异</button></div></div>';
+
+    const cards = '<div id="regionCards"></div>';
+    const rowsHtml = '<div id="rixdRows" class="stack"></div>';
+    const notice =
+      '<div class="notice warn"><div class="title">原始工作簿有两套区域归属，请注意区分</div><p>Overview 的 FAQ 1 静态表把 ' +
+      '<span class="mono">RFD2</span> 放在 MidAtlantic、<span class="mono">IAH3</span> 放在 SouthEast；但同一文件 Chart Data Week 的 ' +
+      '<span class="mono">ib_region</span> 以及 Regional IXD performance 的区域 Overall 公式都把这两个代码记成 Central。' +
+      "本页同时展示两套口径：卡片按 Overview 静态表分组，指标行则显示数据行实际 ib_region。Amazon 也说明区域和 rIXD 归属会调整，请以当期 Vendor Central/数据为准。</p></div>";
+
+    container.innerHTML =
+      statHtml +
+      '<div style="height:16px"></div>' +
+      notice +
+      '<div style="height:14px"></div>' +
+      '<div class="section-head"><h2>五大区域分布与 Warehouse Code</h2>' +
+      '<span class="desc">按 Overview FAQ 1 的 rIXD location 表整理</span></div>' +
+      cards +
+      '<div style="height:20px"></div>' +
+      '<div class="section-head"><h2>逐代码对照明细</h2><span class="desc">可搜索与筛选</span></div>' +
+      controls +
+      rowsHtml;
+
+    renderRegionCards(document.getElementById("regionCards"), false);
+    const mapRowsEl = document.getElementById("rixdRows");
+    let mode = "all";
+    let q = "";
+
+    function paint() {
+      mapRowsEl.innerHTML = regionMapRows({ mode, q });
+    }
+
+    paint();
+
+    const search = document.getElementById("rixdSearch");
+    search.addEventListener("input", (e) => {
+      q = e.target.value.trim().toLowerCase();
+      paint();
+    });
+
+    const seg = container.querySelector(".seg");
+    seg.addEventListener("click", (e) => {
+      const btn = e.target.closest("button");
+      if (!btn) return;
+      mode = btn.dataset.mode;
+      seg.querySelectorAll("button").forEach((b) => b.classList.toggle("active", b === btn));
+      paint();
+    });
+  }
+
+  function initGuide() {
+    const q = (id) => document.getElementById(id);
+    if (q("statCards")) statCards(q("statCards"));
+    if (q("performanceTable")) renderPerformance(q("performanceTable"));
+    if (q("trendChart")) svgTrendChart(q("trendChart"));
+    if (q("trendTable")) renderTrendTable(q("trendTable"));
+    if (q("snapshotRegions")) renderSnapshotRegion(q("snapshotRegions"));
+    if (q("defect1Content")) defect1Section(q("defect1Content"));
+    if (q("defect2Content")) defect2Section(q("defect2Content"));
+    if (q("regionDetail")) pageRegionMap(q("regionDetail"));
+  }
+
+  window.ACR_GUIDE = { initGuide, pageRegionMap };
+})();
+
+</script>
+  <script>window.ACR_GUIDE && window.ACR_GUIDE.initGuide();</script>
+</body>
+</html>
